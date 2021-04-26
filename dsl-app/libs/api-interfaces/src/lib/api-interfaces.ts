@@ -1,3 +1,5 @@
+import { Model } from 'sequelize';
+
 export interface User {
   id: number;
   firstName: string;
@@ -15,6 +17,8 @@ export interface Class {
   id: number;
   name: string;
 } 
+
+export interface ClassInstance extends Model<Class>, Class {}
 
 export interface Classes {
   items: Class[];
