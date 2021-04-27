@@ -7,8 +7,7 @@ import { DataTypes } from 'sequelize';
 // interface CodeCreationAttributes
 //   extends Optional<Code, 'id'> {}
 
-
-export const Code = sequelize.define<CodeInstance>(
+const Code = sequelize.define<CodeInstance>(
   'User',
   {
     id: {
@@ -40,3 +39,5 @@ export const Code = sequelize.define<CodeInstance>(
     timestamps: false
   }
 );
+
+export default Code;
