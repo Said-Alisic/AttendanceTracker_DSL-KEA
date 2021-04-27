@@ -20,7 +20,12 @@ export const Class = sequelize.define<ClassInstance>(
     },
     name: {
       allowNull: false,
+      unique: true,
       type: DataTypes.TEXT,
     },
+  }, {
+    tableName: 'classes',
+    timestamps: false
   }
+
 );
