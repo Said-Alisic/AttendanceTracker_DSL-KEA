@@ -7,8 +7,7 @@ import { DataTypes } from 'sequelize';
 // interface ClassCreationAttributes
 //   extends Optional<Class, 'id'> {}
 
-
-export const Class = sequelize.define<ClassInstance>(
+const Class = sequelize.define<ClassInstance>(
   'Class',
   {
     id: {
@@ -27,5 +26,6 @@ export const Class = sequelize.define<ClassInstance>(
     tableName: 'classes',
     timestamps: false
   }
-
 );
+
+export default Class;

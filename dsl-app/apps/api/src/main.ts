@@ -1,10 +1,18 @@
 import * as express from 'express';
-import { } from '@dsl-app/api-interfaces';
+import router from './app/routes/router'
 
 const app = express();
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
+const PORT = process.env.port || 3333;
+
+app.use('/api', router)
+
+const server = app.listen(PORT, () => {
+  console.log('Listening at http://localhost:' + PORT + '/api');
 });
+
+app.get('/api', (req, res) => {
+  res.send('http://localhost::' + PORT + ' API is running...');
+});
+
 server.on('error', console.error);

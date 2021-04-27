@@ -7,8 +7,7 @@ import { DataTypes } from 'sequelize';
 // interface LessonCreationAttributes
 //   extends Optional<Lesson, 'id'> {}
 
-
-export const Lesson = sequelize.define<LessonInstance>(
+const Lesson = sequelize.define<LessonInstance>(
   'User',
   {
     id: {
@@ -36,3 +35,5 @@ export const Lesson = sequelize.define<LessonInstance>(
     timestamps: false
   }
 );
+
+export default Lesson;

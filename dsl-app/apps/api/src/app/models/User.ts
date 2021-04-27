@@ -8,7 +8,7 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<User, 'id'> {}
 
 
-export const User = sequelize.define<UserInstance>(
+const User = sequelize.define<UserInstance>(
   'User',
   {
     id: {
@@ -18,11 +18,11 @@ export const User = sequelize.define<UserInstance>(
       type: DataTypes.UUID,
       unique: true,
     },
-    firstName: {
+    first_name: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    lastName: {
+    last_name: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
@@ -44,3 +44,5 @@ export const User = sequelize.define<UserInstance>(
     timestamps: false
   }
 );
+
+export default User;

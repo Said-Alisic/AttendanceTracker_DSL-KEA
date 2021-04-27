@@ -8,7 +8,7 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<ClassStudent, 'id'> {}
 
 
-export const ClassStudent = sequelize.define<ClassStudentInstance>(
+const ClassStudent = sequelize.define<ClassStudentInstance>(
   'ClassTeacher',
   {
     class_id: {
@@ -26,3 +26,5 @@ export const ClassStudent = sequelize.define<ClassStudentInstance>(
     timestamps: false
   }
 );
+
+export default ClassStudent;

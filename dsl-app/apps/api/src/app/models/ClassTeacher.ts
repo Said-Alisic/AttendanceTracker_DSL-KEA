@@ -8,7 +8,7 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<ClassTeacher, 'id'> {}
 
 
-export const ClassTeacher = sequelize.define<ClassTeacherInstance>(
+const ClassTeacher = sequelize.define<ClassTeacherInstance>(
   'ClassTeacher',
   {
     class_id: {
@@ -16,7 +16,7 @@ export const ClassTeacher = sequelize.define<ClassTeacherInstance>(
       primaryKey: true,
       type: DataTypes.UUID,
     },
-    student_id: {
+    teacher_id: {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,
@@ -26,3 +26,5 @@ export const ClassTeacher = sequelize.define<ClassTeacherInstance>(
     timestamps: false
   }
 );
+
+export default ClassTeacher;

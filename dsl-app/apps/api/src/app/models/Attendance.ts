@@ -7,8 +7,7 @@ import { DataTypes } from 'sequelize';
 // interface AttendanceCreationAttributes
 //   extends Optional<Attendance, 'id'> {}
 
-
-export const Attendance = sequelize.define<AttendanceInstance>(
+const Attendance = sequelize.define<AttendanceInstance>(
   'User',
   {
     lesson_id: {
@@ -34,3 +33,5 @@ export const Attendance = sequelize.define<AttendanceInstance>(
     timestamps: false
   }
 );
+
+export default Attendance;

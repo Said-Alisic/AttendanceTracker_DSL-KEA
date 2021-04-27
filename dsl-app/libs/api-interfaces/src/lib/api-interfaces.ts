@@ -2,8 +2,8 @@ import { Model } from 'sequelize';
 
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   role: string;
@@ -68,7 +68,7 @@ export interface ClassStudents {
 
 export interface ClassTeacher {
   class_id: number;
-  student_id: number;
+  teacher_id: number;
 }
 export interface ClassTeacherInstance extends Model<ClassTeacher>, ClassTeacher {}
 export interface ClassTeachers {
