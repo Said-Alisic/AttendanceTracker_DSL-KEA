@@ -28,7 +28,7 @@ class Layout extends Component {
     return (
       <AntLayout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu theme="dark" mode="inline">
             <Menu.Item  key="1" icon={<TeamOutlined />}>
               <NavLink to="/classes">
                 Classes
