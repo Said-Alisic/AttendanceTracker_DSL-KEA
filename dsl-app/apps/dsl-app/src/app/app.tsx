@@ -7,7 +7,7 @@ export const App = () => {
 
   return (
     <Layout>
-      <div style={{ textAlign: 'center' }}>
+      <div className="inner-content">
         <Router/>
       </div>
     </Layout>
