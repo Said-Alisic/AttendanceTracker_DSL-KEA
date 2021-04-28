@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { } from '@dsl-app/api-interfaces';
+import Layout from './components/layout/layout'
 
 export const App = () => {
 
   return (
-    <div style={{ textAlign: 'center' }}>
-
-    </div>
+    <Layout>
+      <div style={{ textAlign: 'center' }}>
+        <h1>Hello!</h1>
+      </div>
+    </Layout>
+    
   );
 };
 
