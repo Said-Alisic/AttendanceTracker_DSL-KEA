@@ -11,7 +11,7 @@ import './layout.module.css';
 import 'antd/dist/antd.css';
 
 
-const { Header, Content, Footer, Sider } = AntLayout;
+const { Header, Content, Sider } = AntLayout;
 
 class Layout extends Component {
   state = {
@@ -34,17 +34,22 @@ class Layout extends Component {
                 Classes
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="2" icon={<PieChartOutlined />}>
+            <Menu.Item  key="2" icon={<TeamOutlined />}>
+              <NavLink to="/users">
+                Users
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<PieChartOutlined />}>
               <NavLink to="/attendance">
                 Attendance
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="3" icon={<DesktopOutlined />}>
+            <Menu.Item key="4" icon={<DesktopOutlined />}>
               <NavLink to="/check-attendance">
                 Check Attendance
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="4" icon={<UserOutlined />}>
+            <Menu.Item key="5" icon={<UserOutlined />}>
               <NavLink to="/submit-attendance">
                 Submit Attendance
               </NavLink>

@@ -1,4 +1,4 @@
-import { Class, User } from '@dsl-app/api-interfaces';
+import { Class } from '@dsl-app/api-interfaces';
 import axios from 'axios';
 
 const URL = 'api/classes';
