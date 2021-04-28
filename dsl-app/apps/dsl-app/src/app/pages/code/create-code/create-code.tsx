@@ -5,7 +5,7 @@ import './create-code.module.css';
 /* eslint-disable-next-line */
 export interface CreateCodeProps {}
 
-export function CreateCode(props: CreateCodeProps) {
+function CreateCode(props: CreateCodeProps) {
   return (
     <div>
       <h1>Welcome to CreateCode!</h1>

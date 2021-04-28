@@ -1,9 +1,9 @@
 import { Component } from 'react';
+import { Link as NavLink } from 'react-router-dom';
 import { Layout as AntLayout, Menu } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
-  FileOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -12,7 +12,6 @@ import 'antd/dist/antd.css';
 
 
 const { Header, Content, Footer, Sider } = AntLayout;
-const { SubMenu } = Menu;
 
 class Layout extends Component {
   state = {
@@ -30,17 +29,25 @@ class Layout extends Component {
       <AntLayout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item  key="1" icon={<PieChartOutlined />}>
-              Classes
+            <Menu.Item  key="1" icon={<TeamOutlined />}>
+              <NavLink to="/classes">
+                Classes
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              Attendance
+            <Menu.Item key="2" icon={<PieChartOutlined />}>
+              <NavLink to="/attendance">
+                Attendance
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="3" icon={<FileOutlined />}>
-              Check Attendance
+            <Menu.Item key="3" icon={<DesktopOutlined />}>
+              <NavLink to="/check-attendance">
+                Check Attendance
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="4" icon={<FileOutlined />}>
-              Submit Attendance
+            <Menu.Item key="4" icon={<UserOutlined />}>
+              <NavLink to="/submit-attendance">
+                Submit Attendance
+              </NavLink>
             </Menu.Item>
           </Menu>
         </Sider>

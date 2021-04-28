@@ -5,7 +5,7 @@ import './submit-code.module.css';
 /* eslint-disable-next-line */
 export interface SubmitCodeProps {}
 
-export function SubmitCode(props: SubmitCodeProps) {
+function SubmitCode(props: SubmitCodeProps) {
   return (
     <div>
       <h1>Welcome to SubmitCode!</h1>
