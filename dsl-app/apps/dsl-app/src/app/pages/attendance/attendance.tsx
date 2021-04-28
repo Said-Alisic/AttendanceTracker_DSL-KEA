@@ -5,7 +5,7 @@ import './attendance.module.css';
 /* eslint-disable-next-line */
 export interface AttendanceProps {}
 
-export function Attendance(props: AttendanceProps) {
+function Attendance(props: AttendanceProps) {
   return (
     <div>
       <h1>Welcome to Attendance!</h1>
