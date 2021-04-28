@@ -1,5 +1,3 @@
-import React from 'react';
-import { } from '@dsl-app/api-interfaces';
 import Layout from './components/layout/layout'
 import Router from './router/router';
 
