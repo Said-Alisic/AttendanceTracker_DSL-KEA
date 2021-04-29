@@ -10,7 +10,7 @@ import { DataTypes } from 'sequelize';
 const Attendance = sequelize.define<AttendanceInstance>(
   'User',
   {
-    lesson_id: {
+    code_id: {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,

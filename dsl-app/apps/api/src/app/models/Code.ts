@@ -17,7 +17,7 @@ const Code = sequelize.define<CodeInstance>(
         type: DataTypes.UUID,
         unique: true,
       },
-    lesson_id: {
+    class_id: {
       allowNull: false,
       primaryKey: false,
       type: DataTypes.UUID,
@@ -25,6 +25,18 @@ const Code = sequelize.define<CodeInstance>(
     code_string: {
       allowNull: false,
       type: DataTypes.TEXT,
+    },
+    gps_coordinates: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    },
+    date: {
+      allowNull: true,
+      type: DataTypes.DATE,
+    },
+    timeslot: {
+      allowNull: true,
+      type: DataTypes.DATE,
     },
     expiry_datetime: {
       allowNull: true,

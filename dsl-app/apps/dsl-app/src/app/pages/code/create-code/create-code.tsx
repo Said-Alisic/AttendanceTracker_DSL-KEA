@@ -1,4 +1,5 @@
 import React from 'react';
+import CodeModal from '../code-modal/code-modal'
 
 import './create-code.module.css';
 
@@ -7,9 +8,10 @@ export interface CreateCodeProps {}
 
 function CreateCode(props: CreateCodeProps) {
   return (
-    <div>
-      <h1>Welcome to CreateCode!</h1>
-    </div>
+    <>
+      <h1>Welcome to lesson attendance code creator</h1>
+      <CodeModal/>
+    </>
   );
 }
 

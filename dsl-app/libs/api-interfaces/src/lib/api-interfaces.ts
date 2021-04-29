@@ -1,7 +1,7 @@
 import { Model } from 'sequelize';
 
 export interface User {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   email: string;
@@ -14,7 +14,7 @@ export interface Users {
 }
 
 export interface Class {
-  id: number;
+  id?: number;
   name: string;
 } 
 export interface ClassInstance extends Model<Class>, Class {}
@@ -22,8 +22,9 @@ export interface Classes {
   items: Class[];
 }
 
+// May delete
 export interface Lesson {
-  id: number;
+  id?: number;
   class_id: number;
   date: Date;
   timeslot: Date;
@@ -34,11 +35,14 @@ export interface Lessons {
 }
 
 export interface Code {
-  id: number;
-  lesson_id: number;
+  id?: number;
+  class_id: number;
   code_string: string;
-  expiry_datetime: Date;
-  validity: boolean;
+  gps_coordinates: string;
+  date?: string;
+  timeslot: string;
+  expiry_datetime: string;
+  validity?: boolean;
 }
 export interface CodeInstance extends Model<Code>, Code {}
 export interface Codes {
@@ -46,10 +50,10 @@ export interface Codes {
 }
 
 export interface Attendance {
-  lesson_id: number;
+  code_id: number;
   student_id: number;
-  present: boolean;
-  description: string;
+  present?: boolean;
+  description?: string;
 }
 export interface AttendanceInstance extends Model<Attendance>, Attendance {}
 export interface Attendances {
