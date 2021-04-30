@@ -8,9 +8,9 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<Attendance, 'id'> {}
 
 const Attendance = sequelize.define<AttendanceInstance>(
-  'User',
+  'Attendance',
   {
-    lesson_id: {
+    code_id: {
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,

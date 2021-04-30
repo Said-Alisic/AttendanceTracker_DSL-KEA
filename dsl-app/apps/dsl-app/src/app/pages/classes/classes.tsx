@@ -13,11 +13,10 @@ export function Classes(props: ClassesProps) {
   const { Column } = Table;
 
   const [classes, setClasses] = useState<Class[]>([])
-
+  
   useEffect(() => {
     getClasses().then(res => {
-      setClasses(res.data)
-      
+      setClasses(res.data)  
     })
   }, [])
 

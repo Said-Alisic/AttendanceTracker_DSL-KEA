@@ -29,6 +29,23 @@ export const getUser = async (req, res) => {
     }
 };
 
+// export const getUsersByClass = async (req, res) => {
+//     try {
+//         await User.findAll({
+//             where: {
+//                 class_id: req.params.class_id
+//             })
+//             .then(data => {
+//                 return res.status(200).json(data);
+//             })
+//             .catch(err => {
+//                 return res.status(404).send(err);
+//             })
+//     } catch (err) {
+//         return res.status(500).json('Internal server error');
+//     }
+// }
+
 export const addUser = async (req, res) => {
     try {
         await User.create(req.body)

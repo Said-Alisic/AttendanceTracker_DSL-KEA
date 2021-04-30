@@ -36,7 +36,6 @@ export function UserModal(props: UserModalrops) {
 
   const handleSubmit = (values) => {
     setIsModalVisible(false);
-    console.log(values);
     const newUser: User = values;
     postUser(newUser)
       .catch(err => {
