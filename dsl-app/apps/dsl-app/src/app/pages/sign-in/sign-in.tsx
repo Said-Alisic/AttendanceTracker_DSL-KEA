@@ -1,10 +1,15 @@
 import { Form, Input, Button } from 'antd';
+import { useState } from 'react';
+import { getUserByEmail } from '../users/users.service';
 import './sign-in.module.css';
 
 /* eslint-disable-next-line */
 export interface SignInProps {}
 
 function SignIn(props: SignInProps) {
+
+  const [invalidEmail, setInvalidEmail] = useState(false)
+  const [invalidPassword, setInvalidPassword] = useState(false)
 
   const layout = {
     labelCol: { span: 10 },
@@ -13,32 +18,46 @@ function SignIn(props: SignInProps) {
   const tailLayout = {
     wrapperCol: { offset: 10, span: 8 },
   };
-  
-    const onFinish = (values) => {
-      console.log('Success:', values);
-    };
-  
+   
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
     };
-  
 
+    const handleSubmit = (values) => {
+
+      getUserByEmail(values.email)
+      .then(res => {
+        console.log(res.data);
+        
+        if(res.data.password === values.password) {
+          window.location.replace('/attendances')
+        }
+        else {
+          setInvalidPassword(true)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        setInvalidEmail(true)
+      })
+
+    }
+  
   return (
     <Form
       {...layout}
       name="basic"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={handleSubmit}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         label="Password"
         name="password"
@@ -47,7 +66,7 @@ function SignIn(props: SignInProps) {
         <Input.Password />
       </Form.Item>
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
           Sign in
         </Button>
       </Form.Item>

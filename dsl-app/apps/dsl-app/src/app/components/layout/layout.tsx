@@ -40,7 +40,7 @@ class Layout extends Component {
               </NavLink>
             </Menu.Item>
             <Menu.Item key="3" icon={<PieChartOutlined />}>
-              <NavLink to="/attendance">
+              <NavLink to="/attendances">
                 Attendance
               </NavLink>
             </Menu.Item>

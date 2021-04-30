@@ -26,7 +26,11 @@ const Code = sequelize.define<CodeInstance>(
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    gps_coordinates: {
+    coord_lat: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    },
+    coord_lon: {
       allowNull: false,
       type: DataTypes.TEXT,
     },

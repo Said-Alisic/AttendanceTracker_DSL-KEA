@@ -12,6 +12,14 @@ export const getUsers = async () => {
     }
 }
 
+export const getUserByEmail = async (email) => {
+    try {
+        return axios.get<User>(`${URL}/user/${email}`);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export const postUser = async (user: User) => {
     try {
         return axios.post<User>(URL, user );

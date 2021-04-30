@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Modal, Form, Input, Button, Select   } from 'antd';
+import { Modal, Form, Button, Select   } from 'antd';
 import { Code, Class } from '@dsl-app/api-interfaces';
 
 import './code-modal.module.css';
@@ -13,9 +13,10 @@ export interface CodeModalProps {}
 function CodeModal(props: CodeModalProps) {
   
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isCodeVisible, setIsCodeVisible] = useState(false);
 
   const [classes, setClasses] = useState<Class[]>([])
-  const geo = navigator.geolocation;
+  const [codeString, setCodeString] = useState<string>("")
 
   const { Option } = Select;
 
@@ -41,6 +42,10 @@ function CodeModal(props: CodeModalProps) {
     setIsModalVisible(false);
   };
 
+  const codeCancel = () => {
+    setIsCodeVisible(false);
+  }
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -48,7 +53,7 @@ function CodeModal(props: CodeModalProps) {
   const handleSubmit = (values) => {
     setIsModalVisible(false);
 
-    function generate_code(length) {
+    const generate_code = (length) => {
       const result           = [];
       const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       const charactersLength = characters.length;
@@ -57,31 +62,36 @@ function CodeModal(props: CodeModalProps) {
         charactersLength)));
       }
       return result.join('');
-    }
+    };
 
     const currentdate = new Date(); 
     const date = currentdate.getFullYear() + "-" 
                 + (currentdate.getMonth() + 1)  + "-" 
-                + currentdate.getDate()  
-                
+                + currentdate.getDate();        
     const time = currentdate.getHours() + ":"  
                 + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds()
+                + currentdate.getSeconds();
+    const code = generate_code(8);
+
+    setCodeString(code)
 
     const newCode: Code = { 
       class_id: values.class_id, 
-      code_string: generate_code(16),
-      gps_coordinates: "99.33, 54.12",
+      code_string: code,
+      coord_lat: "67.33",
+      coord_lon: "54.12",
       timeslot: date + " " + values.timeslot,
       expiry_datetime: date + " " + time,
     };
     postCode(newCode)
       .then(res => {
-        postAttendanceCode(res.data.id, res.data.class_id)
+        postAttendanceCode(res.data.id, res.data.class_id);
+        setIsCodeVisible(true);
       })
       .catch(err => {
         console.log(err);
-      })
+        setIsCodeVisible(false);
+      });
   }
 
 
@@ -141,6 +151,19 @@ function CodeModal(props: CodeModalProps) {
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+
+      <Modal title="Please check your attendance by submitting the code below" 
+              
+              visible={isCodeVisible}
+              closable={false} 
+              maskClosable={false}
+              footer={[
+                <Button key="okBtn" type="primary" onClick={codeCancel}>
+                  Close
+                </Button>
+              ]}>
+        <h2>{codeString}</h2>
       </Modal>
     </>
   );

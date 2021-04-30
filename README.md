@@ -8,6 +8,14 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 - npm
 - node.js
 - mysql (Currently not necessary)
+- create .env file under dsl-app directory
+
+**.env file contents**
+DB={name}
+DB_HOST={host} (e.g., localhost)
+DB_USER={user} (e.g., admin or root, etc.)
+DB_PASS={pass}
+DB_DIALECT={database_dialect} (e.g., mysql or postgres)
 
 **Running the app**
 1. Navigate to the folder dsl-app
