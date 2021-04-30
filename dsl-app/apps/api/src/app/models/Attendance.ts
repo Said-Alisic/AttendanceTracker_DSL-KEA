@@ -8,7 +8,7 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<Attendance, 'id'> {}
 
 const Attendance = sequelize.define<AttendanceInstance>(
-  'User',
+  'Attendance',
   {
     code_id: {
       allowNull: false,
