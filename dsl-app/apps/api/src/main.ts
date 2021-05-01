@@ -6,7 +6,12 @@ const app = express();
 
 const PORT = process.env.port || 3333;
 
-app.use(cors());
+// Only accept cross-origin requests from specified host
+const corsOps = {
+  origin: "http://localhost:4200"
+}
+
+app.use(cors(corsOps));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router)

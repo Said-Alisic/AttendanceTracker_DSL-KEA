@@ -8,6 +8,6 @@ attendanceRouter.get('/', getAllAttendances);
 attendanceRouter.get('/:id', getAttendance); 
 attendanceRouter.post('/', addAttendance);
 attendanceRouter.post('/:codeId/:classId', addDefaultAttendances);
-attendanceRouter.put('/:id', updateAttendance);
+attendanceRouter.put('/', updateAttendance);
 
 export default attendanceRouter;

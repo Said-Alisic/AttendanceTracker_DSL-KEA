@@ -30,7 +30,6 @@ export const getCode = async (req, res) => {
 };
 
 export const getCodeByString = async (req, res) => {
-    console.log(req.params.codeString);
     try {      
         await Code.findOne({
                 where: {
@@ -38,7 +37,9 @@ export const getCodeByString = async (req, res) => {
                 }
             })
             .then(data => {
-                return res.status(200).json(data);
+                if(data.validity) { return res.status(200).json(data) }
+                else { return res.status(404).json("Code is no longer valid!") }
+                
             })
             .catch(err => {
                 return res.status(404).send(err);

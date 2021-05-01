@@ -5,7 +5,7 @@ import { Code, Class } from '@dsl-app/api-interfaces';
 import './code-modal.module.css';
 import { postCode } from '../code.service';
 import { getClasses } from '../../classes/classes.service';
-import { postAttendanceCode } from '../../attendance/attendance.service';
+import { postAttendances } from '../../attendance/attendance.service';
 
 /* eslint-disable-next-line */
 export interface CodeModalProps {}
@@ -17,6 +17,9 @@ function CodeModal(props: CodeModalProps) {
 
   const [classes, setClasses] = useState<Class[]>([])
   const [codeString, setCodeString] = useState<string>("")
+
+  const [teacherLat, setTeacherLat] = useState("0")
+  const [teacherLon, setTeacherLon]= useState("0")
 
   const { Option } = Select;
 
@@ -50,20 +53,24 @@ function CodeModal(props: CodeModalProps) {
     console.log('Failed:', errorInfo);
   };
 
+  const generate_code = (length) => {
+    const result           = [];
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+      result.push(characters.charAt(Math.floor(Math.random() * 
+      charactersLength)));
+    }
+    return result.join('');
+  };
+
+  const getUserCoords = (coords) => {
+    setTeacherLat(coords.coords.latitude)
+    setTeacherLon(coords.coords.longitude)
+  }
+
   const handleSubmit = (values) => {
     setIsModalVisible(false);
-
-    const generate_code = (length) => {
-      const result           = [];
-      const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      const charactersLength = characters.length;
-      for ( let i = 0; i < length; i++ ) {
-        result.push(characters.charAt(Math.floor(Math.random() * 
-        charactersLength)));
-      }
-      return result.join('');
-    };
-
     const currentdate = new Date(); 
     const date = currentdate.getFullYear() + "-" 
                 + (currentdate.getMonth() + 1)  + "-" 
@@ -78,14 +85,14 @@ function CodeModal(props: CodeModalProps) {
     const newCode: Code = { 
       class_id: values.class_id, 
       code_string: code,
-      coord_lat: "67.33",
-      coord_lon: "54.12",
+      coord_lat: teacherLat,
+      coord_lon: teacherLon,
       timeslot: date + " " + values.timeslot,
       expiry_datetime: date + " " + time,
     };
     postCode(newCode)
       .then(res => {
-        postAttendanceCode(res.data.id, res.data.class_id);
+        postAttendances(res.data.id, res.data.class_id);
         setIsCodeVisible(true);
       })
       .catch(err => {
