@@ -12,17 +12,18 @@ export const getAttendances = async () => {
     }
 }
 
-export const postAttendance = async (attendance: Attendance) => {
+
+export const postAttendances = async (id: number, class_id: number) => {
     try {
-        return axios.post<Attendance>(URL, attendance);
+        return axios.post(`${URL}/${id}/${class_id}`);
     } catch (err) {
         console.log(err);
     }
 }
 
-export const postAttendanceCode = async (id: number, class_id: number) => {
+export const updateAttendance = async (attendance: Attendance) => {
     try {
-        return axios.post(`${URL}/${id}/${class_id}`);
+        return axios.put<Attendance>(URL, attendance);
     } catch (err) {
         console.log(err);
     }

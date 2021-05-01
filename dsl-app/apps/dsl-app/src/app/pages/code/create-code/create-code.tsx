@@ -1,4 +1,3 @@
-import React from 'react';
 import CodeModal from '../code-modal/code-modal'
 
 import './create-code.module.css';

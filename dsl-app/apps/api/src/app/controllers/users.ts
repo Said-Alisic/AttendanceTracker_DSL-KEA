@@ -29,6 +29,25 @@ export const getUser = async (req, res) => {
     }
 };
 
+export const getUserByEmail = async (req, res)=> {
+    try {
+        await User.findOne({
+                where: {
+                    email: req.params.email
+                }
+            })
+            .then(data => {
+                return res.status(200).json(data);
+            })
+            .catch(err => {
+                console.log(err);
+                return res.status(404).send("User not found!");
+            })
+    } catch (err) {
+        return res.status(500).json('Internal server error');
+    }
+};
+
 // export const getUsersByClass = async (req, res) => {
 //     try {
 //         await User.findAll({

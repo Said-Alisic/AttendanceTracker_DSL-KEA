@@ -90,8 +90,8 @@ export const updateAttendance = async (req, res) => {
     try {
         await Attendance.update(req.body, {
             where: {
-                student_id: req.params.id,
-                code_id: req.params.id
+                code_id: req.body.code_id,
+                student_id: req.body.student_id
             }
         }).then(() => {
             return res.status(200).json();

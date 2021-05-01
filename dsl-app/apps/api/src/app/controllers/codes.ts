@@ -29,6 +29,26 @@ export const getCode = async (req, res) => {
     }
 };
 
+export const getCodeByString = async (req, res) => {
+    try {      
+        await Code.findOne({
+                where: {
+                    code_string: req.params.codeString
+                }
+            })
+            .then(data => {
+                if(data.validity) { return res.status(200).json(data) }
+                else { return res.status(404).json("Code is no longer valid!") }
+                
+            })
+            .catch(err => {
+                return res.status(404).send(err);
+            })
+    } catch (err) {
+        return res.status(500).json('Internal server error');
+    }
+};
+
 export const addCode = async (req, res) => {
     try {
         await Code.create(req.body)

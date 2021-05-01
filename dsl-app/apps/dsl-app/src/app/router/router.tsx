@@ -17,7 +17,7 @@ function Router(props: RouterProps) {
       <Route exact path="/" component={SignIn}/>
       <Route exact path="/classes" component={Classes}/>
       <Route exact path="/users" component={Users}/>
-      <Route exact path="/attendance" component={Attendance}/>
+      <Route exact path="/attendances" component={Attendance}/>
       <Route exact path="/check-attendance" component={CreateCode}/>
       <Route exact path="/submit-attendance" component={SubmitCode}/> 
       <Route exact path="/*" component={Error}/>
