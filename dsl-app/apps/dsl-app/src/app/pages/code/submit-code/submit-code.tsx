@@ -48,7 +48,7 @@ function SubmitCode(props: SubmitCodeProps) {
           if(values === res.data.code_string) {
             const attendance: Attendance = {
               code_id: res.data.id,
-              student_id: 7,
+              student_id: JSON.parse(localStorage.getItem('user')).id,
               present: true,
               description: 'Student submitted attendance through code.'
             }

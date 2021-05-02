@@ -6,6 +6,7 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import './layout.module.css';
 import 'antd/dist/antd.css';
@@ -21,6 +22,10 @@ class Layout extends Component {
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
+  };
+
+   handleLogout = () => {
+    localStorage.clear();
   };
 
   render() {
@@ -52,6 +57,11 @@ class Layout extends Component {
             <Menu.Item key="5" icon={<UserOutlined />}>
               <NavLink to="/submit-attendance">
                 Submit Attendance
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<LogoutOutlined />}>
+              <NavLink to="/" onClick={this.handleLogout}>
+                Sign out
               </NavLink>
             </Menu.Item>
           </Menu>
