@@ -28,7 +28,7 @@ function SignIn(props: SignInProps) {
       .then(res => {
         if(res.data.password === values.password) {
           window.location.replace('/attendances')
-          
+          localStorage.setItem('user', JSON.stringify(res.data))
         }
         else {
           setInvalidPassword(true)

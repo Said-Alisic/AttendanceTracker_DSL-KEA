@@ -5,7 +5,7 @@ import Classes from '../pages/classes/classes';
 import Users from '../pages/users/users';
 import CreateCode from '../pages/code/create-code/create-code';
 import SubmitCode from '../pages/code/submit-code/submit-code';
-import Attendances from '../pages/attendances/attendances';
+import Attendances from '../pages/attendance/attendance';
 import Error from '../pages/error/error';
 
 /* eslint-disable-next-line */
