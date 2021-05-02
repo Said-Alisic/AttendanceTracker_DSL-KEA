@@ -5,7 +5,7 @@ import Classes from '../pages/classes/classes';
 import Users from '../pages/users/users';
 import CreateCode from '../pages/code/create-code/create-code';
 import SubmitCode from '../pages/code/submit-code/submit-code';
-import Attendance from '../pages/attendance/attendance';
+import Attendances from '../pages/attendances/attendances';
 import Error from '../pages/error/error';
 
 /* eslint-disable-next-line */
@@ -17,7 +17,7 @@ function Router(props: RouterProps) {
       <Route exact path="/" component={SignIn}/>
       <Route exact path="/classes" component={Classes}/>
       <Route exact path="/users" component={Users}/>
-      <Route exact path="/attendances" component={Attendance}/>
+      <Route exact path="/attendances" component={Attendances}/>
       <Route exact path="/check-attendance" component={CreateCode}/>
       <Route exact path="/submit-attendance" component={SubmitCode}/> 
       <Route exact path="/*" component={Error}/>

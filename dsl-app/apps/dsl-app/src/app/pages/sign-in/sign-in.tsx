@@ -24,13 +24,11 @@ function SignIn(props: SignInProps) {
     };
 
     const handleSubmit = (values) => {
-
       getUserByEmail(values.email)
       .then(res => {
-        console.log(res.data);
-        
         if(res.data.password === values.password) {
           window.location.replace('/attendances')
+          
         }
         else {
           setInvalidPassword(true)
