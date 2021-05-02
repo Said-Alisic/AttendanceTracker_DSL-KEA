@@ -2,7 +2,7 @@ import { Input, message } from 'antd';
 
 import './submit-code.module.css';
 import { getCodeByString } from '../code.service';
-import { updateAttendance } from '../../attendances/attendances.service';
+import { updateAttendance } from '../../attendance/attendance.service';
 import { Attendance, Code } from '@dsl-app/api-interfaces';
 import { useState } from 'react';
 
