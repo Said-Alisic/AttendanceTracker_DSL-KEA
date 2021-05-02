@@ -2,7 +2,7 @@ import { Input, message } from 'antd';
 
 import './submit-code.module.css';
 import { getCodeByString } from '../code.service';
-import { updateAttendance } from '../../attendance/attendance.service';
+import { updateAttendance } from '../../attendances/attendances.service';
 import { Attendance, Code } from '@dsl-app/api-interfaces';
 import { useState } from 'react';
 
@@ -48,7 +48,7 @@ function SubmitCode(props: SubmitCodeProps) {
           if(values === res.data.code_string) {
             const attendance: Attendance = {
               code_id: res.data.id,
-              student_id: 2,
+              student_id: 7,
               present: true,
               description: 'Student submitted attendance through code.'
             }

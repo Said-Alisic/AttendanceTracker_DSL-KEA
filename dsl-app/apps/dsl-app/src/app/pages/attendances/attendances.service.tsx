@@ -8,7 +8,14 @@ export const getAttendances = async () => {
         return axios.get<Attendance[]>(URL);
     } catch (err) {
         console.log(err);
-        
+    }
+}
+
+export const getAttendancesByClass = async (class_id) => {
+    try {
+        return axios.get<Attendance[]>(`${URL}/class/${class_id}`);
+    } catch (err) {
+        console.log(err);
     }
 }
 

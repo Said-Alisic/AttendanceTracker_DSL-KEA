@@ -5,7 +5,7 @@ import { Code, Class } from '@dsl-app/api-interfaces';
 import './code-modal.module.css';
 import { postCode } from '../code.service';
 import { getClasses } from '../../classes/classes.service';
-import { postAttendances } from '../../attendance/attendance.service';
+import { postAttendances } from '../../attendances/attendances.service';
 
 /* eslint-disable-next-line */
 export interface CodeModalProps {}
