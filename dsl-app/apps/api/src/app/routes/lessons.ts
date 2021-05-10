@@ -2,7 +2,12 @@ import express = require('express');
 
 const lessonRouter = express.Router();
 
-import { getAllLessons, getLesson, addLesson, updateLesson, deleteLesson  } from '../controllers/lessons';
+import { 
+  getAllLessons, 
+  getLesson, 
+  addLesson, 
+  updateLesson, 
+  deleteLesson  } from '../controllers/lessons';
 
 lessonRouter.get('/', getAllLessons); 
 lessonRouter.get('/:id', getLesson); 

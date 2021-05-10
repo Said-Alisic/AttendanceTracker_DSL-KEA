@@ -11,12 +11,12 @@ const Lesson = sequelize.define<LessonInstance>(
   'User',
   {
     id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.UUID,
-        unique: true,
-      },
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      unique: true,
+    },
     class_id: {
       allowNull: false,
       primaryKey: false,
@@ -27,8 +27,8 @@ const Lesson = sequelize.define<LessonInstance>(
       type: DataTypes.DATE,
     },
     timeslot: {
-        allowNull: true,
-        type: DataTypes.DATE,
+      allowNull: true,
+      type: DataTypes.DATE,
     }
   }, {
     tableName: 'lessons',

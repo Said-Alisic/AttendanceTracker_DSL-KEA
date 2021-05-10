@@ -3,8 +3,12 @@ import express = require('express');
 const attendanceRouter = express.Router();
 
 import { 
-    getAllAttendances, getAttendance, getAttendancesByClass, addAttendance, 
-    addDefaultAttendances, updateAttendance  
+  getAllAttendances, 
+  getAttendance, 
+  getAttendancesByClass, 
+  addAttendance, 
+  addDefaultAttendances, 
+  updateAttendance  
 } from '../controllers/attendances';
 
 attendanceRouter.get('/', getAllAttendances); 

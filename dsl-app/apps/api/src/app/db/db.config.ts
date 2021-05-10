@@ -16,25 +16,15 @@ Attendance.belongsTo(User,  {foreignKey: 'student_id'})
 Attendance.belongsTo(Code,  {foreignKey: 'code_id'})
 ClassTeacher.belongsTo(Class, {foreignKey: 'class_id'}); 
 ClassStudent.belongsTo(Class, {foreignKey: 'class_id'}); 
-// Class.hasMany(Code)
-// Class.hasOne(ClassTeacher)
-// Class.hasMany(ClassStudent)
-// Code.belongsTo(Class); 
-// Code.hasMany(Attendance); 
-// User.hasMany(Attendance)
-// Attendance.belongsTo(User,)
-// Attendance.belongsTo(Code,)
-// ClassTeacher.belongsTo(Class); 
-// ClassStudent.belongsTo(Class); 
 
 const dbConfig = {
-    Sequelize: sequelize,
-    User: User,
-    Class: Class,
-    Code: Code,
-    Attendance: Attendance,
-    ClassStudent: ClassStudent,
-    ClassTeacher: ClassTeacher,
-  };
+  Sequelize: sequelize,
+  User: User,
+  Class: Class,
+  Code: Code,
+  Attendance: Attendance,
+  ClassStudent: ClassStudent,
+  ClassTeacher: ClassTeacher,
+};
 
 export default dbConfig;
