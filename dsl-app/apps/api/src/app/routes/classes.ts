@@ -2,7 +2,12 @@ import express = require('express');
 
 const classRouter = express.Router();
 
-import { getAllClasses, getClass, addClass, updateClass, deleteClass  } from '../controllers/classes';
+import { 
+  getAllClasses, 
+  getClass, 
+  addClass, 
+  updateClass, 
+  deleteClass  } from '../controllers/classes';
 
 classRouter.get('/', getAllClasses); 
 classRouter.get('/:id', getClass); 

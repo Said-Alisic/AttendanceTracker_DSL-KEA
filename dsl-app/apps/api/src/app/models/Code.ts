@@ -11,12 +11,12 @@ const Code = sequelize.define<CodeInstance>(
   'User',
   {
     id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.UUID,
-        unique: true,
-      },
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      unique: true,
+    },
     class_id: {
       allowNull: false,
       primaryKey: false,

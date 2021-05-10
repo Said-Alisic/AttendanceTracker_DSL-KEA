@@ -2,7 +2,11 @@ import express = require('express');
 
 const classTeacherRouter = express.Router();
 
-import { getAllClassTeachers, getClassTeacher, addClassTeacher, deleteClassTeacher  } from '../controllers/classTeachers';
+import { 
+  getAllClassTeachers, 
+  getClassTeacher, 
+  addClassTeacher, 
+  deleteClassTeacher  } from '../controllers/classTeachers';
 
 classTeacherRouter.get('/', getAllClassTeachers); 
 classTeacherRouter.get('/:id', getClassTeacher); 

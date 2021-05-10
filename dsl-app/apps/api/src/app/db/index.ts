@@ -9,10 +9,10 @@ const DB_DIALECT = 'mysql' // Which type of db to connect to; in our case, a 'my
 
 // Sequelize database connection
 const sequelize = new Sequelize(DB, DB_USER, DB_PASS, {
-    host: DB_HOST,
-    dialect: DB_DIALECT,
-    models: [__dirname + '../models'],
-    logging: false,
+  host: DB_HOST,
+  dialect: DB_DIALECT,
+  models: [__dirname + '../models'],
+  logging: false,
 });
 
 export default sequelize;
