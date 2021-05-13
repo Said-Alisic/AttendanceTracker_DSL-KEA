@@ -1,16 +1,22 @@
+import { 
+  Request, 
+  Response, 
+  NextFunction 
+} from 'express';
 import dbConfig from '../db/db.config';
 
-const verifyExistingUser = (req, res, next) => {
+const verifyExistingUser = (req: Request, res: Response, next: NextFunction) => {
   dbConfig.User.findOne({
     where: {
       email: req.body.email
-    }
+    },
   })
     .then(data => {
-      if(data) {
-        next();
+      if(!data) {
+        return res.status(404).json('User does not exist!')
+        
       }
-      return res.status(404).json('User does not exist!')
+      next();    
     })
     .catch(() => {
       return res.status(500).json('Internal server error!');
@@ -18,7 +24,7 @@ const verifyExistingUser = (req, res, next) => {
     })
 }
 
-const verifyNewUser = (req, res, next) => {
+const verifyNewUser = (req: Request, res: Response, next: NextFunction) => {
   dbConfig.User.findOne({
     where: {
       email: req.body.email,

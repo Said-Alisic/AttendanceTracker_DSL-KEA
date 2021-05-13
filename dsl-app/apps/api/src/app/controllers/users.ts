@@ -1,8 +1,15 @@
 /* eslint-disable no-console */
+import { 
+  Request, 
+  Response 
+} from "express";
 import dbConfig from '../db/db.config';
 import jwt = require('jsonwebtoken');
 import bcrypt = require('bcryptjs');
-import { User } from '@dsl-app/api-interfaces';
+import { 
+  User, 
+  AuthUser, 
+} from '@dsl-app/api-interfaces';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -49,14 +56,13 @@ export const getUser = async (req, res) => {
 //     }
 // }
 
-export const addUser = async (req, res) => {
+export const addUser = async (req: Request, res: Response) => {
   try {
     const newuser: User = {
-      id: req.body.id,
       first_name: req.body.first_name,
       last_name:  req.body.last_name,
       email:  req.body.email,
-      password: bcrypt.hashSync(req.body.password, process.env.BCRYPT_SALT),
+      password: bcrypt.hashSync(req.body.password, 12),
       role:  req.body.role
     }
 
@@ -68,10 +74,11 @@ export const addUser = async (req, res) => {
         return res.status(404).send(err);
       })
   } catch (err) {
+    console.log(err);
     return res.status(500).json('Internal server error');
   }
 };
-
+// process.env.BCRYPT_SALT as unknown as number
 export const updateUser = async (req, res) => {
   try {
     await dbConfig.User.update(req.body, {
@@ -107,33 +114,35 @@ export const deleteUser = async (req, res) => {
 };
 
 // Sign in
-export const signInUser = async (req, res) => {
+export const signInUser = async (req: Request, res: Response) => {
   try {
-    await dbConfig.User.findByPk(req.params.id)
+    dbConfig.User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    })
       .then(data => {
         if (!bcrypt.compareSync(req.body.password, data.password)) {
           return res.status(401).send('Unauthorized user, credentials do not match!');
         }
-        const token = jwt.sign({
+        const token: string = jwt.sign({
           id: data.id,
         }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRE,
         });
-        return res.status(200).send({
-          user: {
-            id: data.id,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
-            role: data.role,
-          },
-          accessToken: token,
-        });
+
+        const authUser: AuthUser = {
+          user: data,
+          auth_token: token,
+        };
+        
+        return res.status(200).send(authUser);
       })
       .catch(err => {
         return res.status(404).send(err);
       })
   } catch (err) {
+    console.log(err);
     return res.status(500).json('Internal server error');
   }
 };

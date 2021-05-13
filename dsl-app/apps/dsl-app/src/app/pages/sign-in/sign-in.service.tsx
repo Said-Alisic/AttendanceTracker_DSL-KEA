@@ -8,7 +8,6 @@ export const signInUser = async () => {
         return axios.get<User>(`${URL}/sign-in`);
     } catch (err) {
         console.log(err);
-        
     }
 }
 
@@ -16,7 +15,6 @@ export const signOutUser = async () => {
     try {
         return axios.get<User[]>(`${URL}/sign-out`);
     } catch (err) {
-        console.log(err);
-        
+        console.log(err); 
     }
 }
