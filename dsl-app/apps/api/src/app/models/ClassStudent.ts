@@ -9,7 +9,7 @@ import { DataTypes } from 'sequelize';
 
 
 const ClassStudent = sequelize.define<ClassStudentInstance>(
-  'ClassTeacher',
+  'ClassStudent',
   {
     class_id: {
       allowNull: false,

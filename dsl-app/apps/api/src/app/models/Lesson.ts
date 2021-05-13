@@ -8,7 +8,7 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<Lesson, 'id'> {}
 
 const Lesson = sequelize.define<LessonInstance>(
-  'User',
+  'Lesson',
   {
     id: {
       allowNull: false,

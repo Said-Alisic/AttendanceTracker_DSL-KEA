@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
-import User from '../models/User';
+import dbConfig from '../db/db.config';
+import jwt = require('jsonwebtoken');
+import bcrypt = require('bcryptjs');
+import { User } from '@dsl-app/api-interfaces';
 
 export const getAllUsers = async (req, res) => {
   try {
-    await User.findAll()
+    await dbConfig.User.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -17,7 +20,7 @@ export const getAllUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    await User.findByPk(req.params.id)
+    await dbConfig.User.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -29,28 +32,9 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getUserByEmail = async (req, res)=> {
-  try {
-    await User.findOne({
-      where: {
-        email: req.params.email
-      }
-    })
-      .then(data => {
-        return res.status(200).json(data);
-      })
-      .catch(err => {
-        console.log(err);
-        return res.status(404).send("User not found!");
-      })
-  } catch (err) {
-    return res.status(500).json('Internal server error');
-  }
-};
-
 // export const getUsersByClass = async (req, res) => {
 //     try {
-//         await User.findAll({
+//         await dbConfig.User.findAll({
 //             where: {
 //                 class_id: req.params.class_id
 //             })
@@ -67,7 +51,16 @@ export const getUserByEmail = async (req, res)=> {
 
 export const addUser = async (req, res) => {
   try {
-    await User.create(req.body)
+    const newuser: User = {
+      id: req.body.id,
+      first_name: req.body.first_name,
+      last_name:  req.body.last_name,
+      email:  req.body.email,
+      password: bcrypt.hashSync(req.body.password, process.env.BCRYPT_SALT),
+      role:  req.body.role
+    }
+
+    await dbConfig.User.create(newuser)
       .then(data => {
         return res.json(data)
       })
@@ -81,7 +74,7 @@ export const addUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    await User.update(req.body, {
+    await dbConfig.User.update(req.body, {
       where: {
         id: req.params.id
       }
@@ -98,7 +91,7 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    await User.destroy({
+    await dbConfig.User.destroy({
       where: {
         id: req.params.id
       }
@@ -112,4 +105,37 @@ export const deleteUser = async (req, res) => {
     return res.status(500).json('Internal server error');
   }
 };
+
+// Sign in
+export const signInUser = async (req, res) => {
+  try {
+    await dbConfig.User.findByPk(req.params.id)
+      .then(data => {
+        if (!bcrypt.compareSync(req.body.password, data.password)) {
+          return res.status(401).send('Unauthorized user, credentials do not match!');
+        }
+        const token = jwt.sign({
+          id: data.id,
+        }, process.env.JWT_SECRET, {
+          expiresIn: process.env.JWT_EXPIRE,
+        });
+        return res.status(200).send({
+          user: {
+            id: data.id,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            role: data.role,
+          },
+          accessToken: token,
+        });
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
 
