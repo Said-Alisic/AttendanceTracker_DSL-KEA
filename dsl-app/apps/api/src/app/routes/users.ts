@@ -1,20 +1,49 @@
 import express = require('express');
-
-const userRouter = express.Router();
-
+import authConfig from '../auth/auth.config';
 import { 
   getAllUsers, 
   getUser, 
-  getUserByEmail, 
+  signInUser,
   addUser, 
   updateUser, 
-  deleteUser  } from '../controllers/users';
+  deleteUser
+} from '../controllers/users';
 
-userRouter.get('/', getAllUsers); 
-userRouter.get('/:id', getUser); 
-userRouter.get('/user/:email', getUserByEmail); 
-userRouter.post('/', addUser);
-userRouter.put('/:id', updateUser);
-userRouter.delete('/:id', deleteUser);
+const userRouter = express.Router();
+
+userRouter.get('/', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getAllUsers
+]); 
+userRouter.get('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getUser
+]); 
+userRouter.post('/sign-in', [
+  authConfig.authVerification.verifyExistingUser, 
+  signInUser
+]); 
+// NOTE: uncomment authentication functions when deploying app to production server
+userRouter.post('/', [
+  // authConfig.authJwt.verifyToken, 
+  // authConfig.authJwt.isAdmin, 
+  authConfig.authVerification.verifyNewUser, 
+  addUser
+]);
+userRouter.put('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  updateUser
+]);
+userRouter.delete('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  deleteUser
+]);
 
 export default userRouter;

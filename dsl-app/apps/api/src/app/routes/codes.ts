@@ -1,20 +1,48 @@
 import express = require('express');
-
-const codeRouter = express.Router();
-
+import authConfig from '../auth/auth.config';
 import { 
   getAllCodes, 
   getCode, 
   getCodeByString, 
   addCode, 
   updateCode, 
-  deleteCode  } from '../controllers/codes';
+  deleteCode 
+} from '../controllers/codes';
 
-codeRouter.get('/', getAllCodes); 
-codeRouter.get('/:id', getCode); 
-codeRouter.get('/code/:codeString', getCodeByString); 
-codeRouter.post('/', addCode);
-codeRouter.put('/:id', updateCode);
-codeRouter.delete('/:id', deleteCode);
+const codeRouter = express.Router();
+
+codeRouter.get('/', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacherOrAdmin,
+  getAllCodes,
+]); 
+codeRouter.get('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacherOrAdmin, 
+  getCode,
+]); 
+codeRouter.get('/code/:codeString', [
+  authConfig.authParams.verifyCodeStringParam, 
+  authConfig.authJwt.verifyToken, 
+  getCodeByString,
+]); 
+codeRouter.post('/', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacherOrAdmin, 
+  addCode,
+]);
+codeRouter.put('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacherOrAdmin, 
+  updateCode
+]);
+codeRouter.delete('/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  deleteCode
+]);
 
 export default codeRouter;

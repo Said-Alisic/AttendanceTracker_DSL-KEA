@@ -1,5 +1,10 @@
 import { Model } from 'sequelize';
 
+export interface AuthUser {
+  user: User;
+  auth_token: string | string[];
+}
+
 export interface User {
   id?: number;
   first_name: string;

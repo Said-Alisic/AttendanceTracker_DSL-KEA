@@ -21,7 +21,7 @@ const server = app.listen(PORT, () => {
 });
 
 app.get('/api', (req, res) => {
-  res.send('http://localhost::' + PORT + ' API is running...');
+  res.send('http://localhost:' + PORT + ' API is running...');
 });
 
 server.on('error', console.error);

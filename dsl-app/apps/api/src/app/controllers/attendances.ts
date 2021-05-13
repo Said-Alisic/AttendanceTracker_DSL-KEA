@@ -29,6 +29,7 @@ export const getAllAttendances = async (req, res) => {
   }
 };
 
+// TO-DO: create query with replacement or use a stored procedure instead
 export const getAttendancesByClass = async (req, res) => {
   try {      
     const query = `SELECT class.name, student.email, student.first_name, student.last_name,
@@ -43,7 +44,7 @@ export const getAttendancesByClass = async (req, res) => {
                         INNER JOIN codes AS code ON attendance.code_id = code.id
                         INNER JOIN classes AS class ON code.class_id = class.id
                         INNER JOIN users AS student on attendance.student_id = student.id
-                        WHERE class.id = ${req.params.classId} ORDER BY timeslot`;
+                        WHERE class.id = ${req.params.id} ORDER BY timeslot`;
 
     dbConfig.Sequelize.query(query, { raw: true, nest: true })
       .then(data => {
