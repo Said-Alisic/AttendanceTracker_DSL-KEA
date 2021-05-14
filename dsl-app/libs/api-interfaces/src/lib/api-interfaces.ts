@@ -1,5 +1,6 @@
 import { Model } from 'sequelize';
 
+// Interface for signed in user
 export interface AuthUser {
   user: User;
   auth_token: string | string[];

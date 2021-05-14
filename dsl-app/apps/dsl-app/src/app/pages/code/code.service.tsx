@@ -5,7 +5,11 @@ const URL = 'api/codes';
 
 export const getCodeByString = async (codeString) => {
     try {
-        return axios.get(`${URL}/code/${codeString}`);
+        return axios.get(`${URL}/code/${codeString}`, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }
@@ -13,7 +17,11 @@ export const getCodeByString = async (codeString) => {
 
 export const postCode = async (code: Code) => {
     try {
-        return axios.post<Code>(URL, code);
+        return axios.post<Code>(URL, code, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }

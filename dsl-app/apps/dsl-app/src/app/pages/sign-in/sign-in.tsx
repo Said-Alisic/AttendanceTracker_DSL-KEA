@@ -1,6 +1,6 @@
 import { Form, Input, Button } from 'antd';
 import { useState } from 'react';
-import { getUserByEmail } from '../users/users.service';
+import { signInUser } from './sign-in.service';
 import './sign-in.module.css';
 
 /* eslint-disable-next-line */
@@ -24,19 +24,16 @@ function SignIn(props: SignInProps) {
     };
 
     const handleSubmit = (values) => {
-      getUserByEmail(values.email)
+      signInUser(values)
       .then(res => {
-        if(res.data.password === values.password) {
-          window.location.replace('/attendances')
-          localStorage.setItem('user', JSON.stringify(res.data))
-        }
-        else {
-          setInvalidPassword(true)
-        }
+        window.location.replace('/attendances')
+        localStorage.setItem('authUser', JSON.stringify(res.data))
+        setInvalidPassword(true)
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err.response.status);
         setInvalidEmail(true)
+        setInvalidPassword(true)
       })
 
     }

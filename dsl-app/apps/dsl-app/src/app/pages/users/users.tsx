@@ -18,8 +18,8 @@ export function Users(props: UsersProps) {
   useEffect(() => {
     getUsers().then(res => {
       setUsers(res.data)
-      
     })
+    .catch (err => console.log(err))
   }, [])
 
   return (
