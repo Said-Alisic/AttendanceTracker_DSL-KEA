@@ -5,7 +5,11 @@ const URL = 'api/attendances';
 
 export const getAttendances = async () => {
     try {
-        return axios.get<Attendance[]>(URL);
+        return axios.get<Attendance[]>(URL, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }
@@ -13,7 +17,11 @@ export const getAttendances = async () => {
 
 export const getAttendancesByClass = async (class_id) => {
     try {
-        return axios.get<Attendance[]>(`${URL}/class/${class_id}`);
+        return axios.get<Attendance[]>(`${URL}/class/${class_id}`, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }
@@ -22,7 +30,11 @@ export const getAttendancesByClass = async (class_id) => {
 
 export const postAttendances = async (id: number, class_id: number) => {
     try {
-        return axios.post(`${URL}/${id}/${class_id}`);
+        return axios.post(`${URL}/${id}/${class_id}`, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }
@@ -30,7 +42,11 @@ export const postAttendances = async (id: number, class_id: number) => {
 
 export const updateAttendance = async (attendance: Attendance) => {
     try {
-        return axios.put<Attendance>(URL, attendance);
+        return axios.put<Attendance>(URL, attendance, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
     }

@@ -3,18 +3,11 @@ import axios from 'axios';
 
 const URL = 'api/users';
 
-export const signInUser = async () => {
+// TO-DO: Add interface for credentials
+export const signInUser = async (credentials) => {
     try {
-        return axios.get<User>(`${URL}/sign-in`);
+        return axios.post(`${URL}/sign-in`, credentials);
     } catch (err) {
         console.log(err);
-    }
-}
-
-export const signOutUser = async () => {
-    try {
-        return axios.get<User[]>(`${URL}/sign-out`);
-    } catch (err) {
-        console.log(err); 
     }
 }

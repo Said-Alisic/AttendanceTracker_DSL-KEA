@@ -29,6 +29,7 @@ function Attendances(props: AttendancesProps) {
     getClasses().then(res => {
       setClasses(res.data)
     })
+    .catch(err => console.error(err))
   }, [])
 
   const onFinishFailed = (errorInfo) => {

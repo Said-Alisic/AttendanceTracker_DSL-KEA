@@ -5,24 +5,25 @@ const URL = 'api/users';
 
 export const getUsers = async () => {
     try {
-        return axios.get<User[]>(URL);
+        return axios.get<User[]>(URL, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
         
     }
 }
 
-export const getUserByEmail = async (email) => {
-    try {
-        return axios.get<User>(`${URL}/user/${email}`);
-    } catch (err) {
-        console.log(err);
-    }
-}
 
 export const postUser = async (user: User) => {
     try {
-        return axios.post<User>(URL, user );
+        return axios.post<User>(URL, user, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
     } catch (err) {
         console.log(err);
         

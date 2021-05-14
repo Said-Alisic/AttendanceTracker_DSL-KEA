@@ -18,6 +18,7 @@ export function Classes(props: ClassesProps) {
     getClasses().then(res => {
       setClasses(res.data)  
     })
+    .catch(err => console.log(err))
   }, [])
 
   // map() item instead class, because 'class' is a reserved keyword

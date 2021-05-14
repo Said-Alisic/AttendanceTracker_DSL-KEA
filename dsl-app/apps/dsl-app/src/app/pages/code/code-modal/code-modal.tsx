@@ -35,6 +35,7 @@ function CodeModal(props: CodeModalProps) {
     getClasses().then(res => {
       setClasses(res.data)
     })
+    .catch(err => console.log(err))
   }, [])
 
   const showModal = () => {
@@ -53,7 +54,7 @@ function CodeModal(props: CodeModalProps) {
     console.log('Failed:', errorInfo);
   };
 
-  const generate_code = (length) => {
+  const generateCode = (length) => {
     const result           = [];
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -78,7 +79,7 @@ function CodeModal(props: CodeModalProps) {
     const time = currentdate.getHours() + ":"  
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
-    const code = generate_code(8);
+    const code = generateCode(8);
 
     setCodeString(code)
 
