@@ -34,6 +34,9 @@ function CodeModal(props: CodeModalProps) {
   useEffect(() => {
     getClasses().then(res => {
       setClasses(res.data)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getUserCoords);
+      }
     })
     .catch(err => console.log(err))
   }, [])
@@ -54,7 +57,12 @@ function CodeModal(props: CodeModalProps) {
     console.log('Failed:', errorInfo);
   };
 
-  const generateCode = (length) => {
+  const getUserCoords = (coords) => {
+    setTeacherLat(coords.coords.latitude)
+    setTeacherLon(coords.coords.longitude)
+  }
+
+  const generateCode = (length): string => {
     const result           = [];
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -65,12 +73,7 @@ function CodeModal(props: CodeModalProps) {
     return result.join('');
   };
 
-  const getUserCoords = (coords) => {
-    setTeacherLat(coords.coords.latitude)
-    setTeacherLon(coords.coords.longitude)
-  }
-
-  const handleSubmit = (values) => {
+  const createCode = (values) : Code => {
     setIsModalVisible(false);
     const currentdate = new Date(); 
     const date = currentdate.getFullYear() + "-" 
@@ -80,7 +83,6 @@ function CodeModal(props: CodeModalProps) {
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
     const code = generateCode(8);
-
     setCodeString(code)
 
     const newCode: Code = { 
@@ -91,90 +93,101 @@ function CodeModal(props: CodeModalProps) {
       timeslot: date + " " + values.timeslot,
       expiry_datetime: date + " " + time,
     };
-    postCode(newCode)
-      .then(res => {
-        postAttendances(res.data.id, res.data.class_id);
-        setIsCodeVisible(true);
-      })
-      .catch(err => {
-        console.log(err);
-        setIsCodeVisible(false);
-      });
+    return newCode;
   }
 
+  const handleSubmit = (values) => {
+    const newCode: Code = createCode(values)
 
-  return (
-    <>
-      <Button 
-      size="large" 
-      className="modalBtn" 
-      type="primary" 
-      onClick={showModal}>
-        Generate Attendance Code
-      </Button>
-      <Modal visible={isModalVisible} onCancel={handleCancel} footer={[null]} closable={false}>
-          <Form
-          {...layout}
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={(values) => handleSubmit(values)}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item
-            label="Class"
-            name="class_id"
-            rules={[{ required: true, message: 'Please select a class!' }]}
+    postCode(newCode)
+    .then(res => {
+      postAttendances(res.data.id, res.data.class_id);
+      setIsCodeVisible(true);
+    })
+    .catch(err => {
+      console.log(err);
+      setIsCodeVisible(false);
+    });
+  }
+  if (navigator.geolocation) {
+    return (
+      <>
+        <Button 
+        size="large" 
+        className="modalBtn" 
+        type="primary" 
+        onClick={showModal}>
+          Generate Attendance Code
+        </Button>
+        <Modal visible={isModalVisible} onCancel={handleCancel} footer={[null]} closable={false}>
+            <Form
+            {...layout}
+            name="basic"
+            initialValues={{ remember: true }}
+            onFinish={(values) => handleSubmit(values)}
+            onFinishFailed={onFinishFailed}
           >
-            <Select
-                placeholder="Select a class"
-                allowClear
-              >
-              {classes.map((classItem, index) => {
-                return (
-                  <Option value={classItem.id} key={index}>{classItem.name}</Option>
-                  )
-              })}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="Time slot"
-            name="timeslot"
-            rules={[{ required: true, message: 'Please select a time slot!' }]}
-          >
-             <Select
-                placeholder="Select a time slot"
-                allowClear
-              >
-              <Option value="08:30:00">08:30 - 09:15</Option>
-              <Option value="09:15:00">9:15 - 10:00</Option>
-              <Option value="10:00:00">10:00 - 10:45</Option>
-              <Option value="10:45:00">10:45 - 12:15</Option>
-              <Option value="12:15:00">12:15 - 13:00</Option>
-              <Option value="13:00:00">13:00 - 13:45</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
-              Generate code
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-
-      <Modal title="Please check your attendance by submitting the code below" 
-              
-              visible={isCodeVisible}
-              closable={false} 
-              maskClosable={false}
-              footer={[
-                <Button key="okBtn" type="primary" onClick={codeCancel}>
-                  Close
-                </Button>
-              ]}>
-        <h2>{codeString}</h2>
-      </Modal>
-    </>
-  );
+            <Form.Item
+              label="Class"
+              name="class_id"
+              rules={[{ required: true, message: 'Please select a class!' }]}
+            >
+              <Select
+                  placeholder="Select a class"
+                  allowClear
+                >
+                {classes.map((classItem, index) => {
+                  return (
+                    <Option value={classItem.id} key={index}>{classItem.name}</Option>
+                    )
+                })}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="Time slot"
+              name="timeslot"
+              rules={[{ required: true, message: 'Please select a time slot!' }]}
+            >
+              <Select
+                  placeholder="Select a time slot"
+                  allowClear
+                >
+                <Option value="08:30:00">08:30 - 09:15</Option>
+                <Option value="09:15:00">9:15 - 10:00</Option>
+                <Option value="10:00:00">10:00 - 10:45</Option>
+                <Option value="10:45:00">10:45 - 12:15</Option>
+                <Option value="12:15:00">12:15 - 13:00</Option>
+                <Option value="13:00:00">13:00 - 13:45</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit">
+                Generate code
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+        <Modal title="Please check your attendance by submitting the code below" 
+                
+                visible={isCodeVisible}
+                closable={false} 
+                maskClosable={false}
+                footer={[
+                  <Button key="okBtn" type="primary" onClick={codeCancel}>
+                    Close
+                  </Button>
+                ]}>
+          <h2>{codeString}</h2>
+        </Modal>
+      </>
+    );
+  } else {
+    return (
+      <div>
+        <h2>Location service must be enabled</h2>
+      </div>
+    )
+  }
 }
 
 export default CodeModal;

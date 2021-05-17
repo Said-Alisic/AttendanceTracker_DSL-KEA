@@ -35,8 +35,8 @@ attendanceRouter.post('/', [
 ]);
 attendanceRouter.post('/:codeId/:classId', [
   authConfig.authParams.verifyCodeClassIdParams, 
-  authConfig.authJwt.verifyToken, 
-  authConfig.authJwt.isTeacherOrAdmin,
+  // authConfig.authJwt.verifyToken, 
+  // authConfig.authJwt.isTeacherOrAdmin,
   addDefaultAttendances
 ]);
 attendanceRouter.put('/', [
