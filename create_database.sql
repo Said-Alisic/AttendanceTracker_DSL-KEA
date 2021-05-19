@@ -28,7 +28,7 @@ CREATE TABLE codes (
   coord_lat VARCHAR(120) NOT NULL,
   coord_lon VARCHAR(120) NOT NULL,
   date DATETIME DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-  timeslot DATETIME NOT NULL,
+  timeslot TIME NOT NULL,
   expiry_datetime DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 10 MINUTE) NOT NULL,
   validity TINYINT(1) NOT NULL,
 
@@ -99,10 +99,10 @@ INSERT INTO classes (name) VALUES
 SELECT * FROM classes;
 
 INSERT INTO codes (class_id, code_string, coord_lat, coord_lon, date, timeslot, expiry_datetime, validity) VALUES
-(2, 'c3DN98c1', '56.15', '10.18', '2021-4-30 09:00:00', '2021-4-30 09:00:00', '2021-4-13 09:10:00', 1),
-(1, '68n67TJE', '93.34', '39.78', '2021-4-30 10:00:00', '2021-4-30 10:00:00', '2021-4-4 10:10:00', 1),
-(4, '234v3cEA', '76.26', '32.16', '2021-4-30 08:30:00', '2021-4-30 08:30:00', '2021-4-1 08:40:00', 1),
-(3, 'c3D12c3v', '46.91', '68.35', '2021-4-30 13:00:00', '2021-4-30 13:00:00', '2021-4-29 13:10:00', 1);
+(2, 'c3DN98c1', '56.15', '10.18', '2021-4-30 09:00:00', '09:00:00', '2021-4-13 09:10:00', 1),
+(1, '68n67TJE', '93.34', '39.78', '2021-4-30 10:00:00', '10:00:00', '2021-4-4 10:10:00', 1),
+(4, '234v3cEA', '76.26', '32.16', '2021-4-30 08:30:00', '08:30:00', '2021-4-1 08:40:00', 1),
+(3, 'c3D12c3v', '46.91', '68.35', '2021-4-30 13:00:00', '13:00:00', '2021-4-29 13:10:00', 1);
 SELECT * FROM codes;
 
 INSERT INTO class_students (class_id, student_id) VALUES
