@@ -25,5 +25,5 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 5. Navigate to http://localhost:4200 for the client application
 
 ##*NOTES*
-- Use Postman to create a new user; existing user's passwords don't work for authentication due to bcrypt.js requiring an encrypted password to allow you to authenticate
+- Use Postman to create a new user with ADMIN privileges; existing user's passwords don't work for authentication due to bcrypt.js requiring an encrypted password to allow you to authenticate
 
