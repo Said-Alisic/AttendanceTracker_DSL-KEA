@@ -40,7 +40,7 @@ const Code = sequelize.define<CodeInstance>(
     },
     timeslot: {
       allowNull: true,
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
     },
     expiry_datetime: {
       allowNull: true,

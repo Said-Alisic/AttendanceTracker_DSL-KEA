@@ -75,13 +75,7 @@ function CodeModal(props: CodeModalProps) {
 
   const createCode = (values) : Code => {
     setIsModalVisible(false);
-    const currentdate = new Date(); 
-    const date = currentdate.getFullYear() + "-" 
-                + (currentdate.getMonth() + 1)  + "-" 
-                + currentdate.getDate();        
-    const time = currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
+
     const code = generateCode(8);
     setCodeString(code)
 
@@ -90,8 +84,7 @@ function CodeModal(props: CodeModalProps) {
       code_string: code,
       coord_lat: teacherLat,
       coord_lon: teacherLon,
-      timeslot: date + " " + values.timeslot,
-      expiry_datetime: date + " " + time,
+      timeslot: values.timeslot,
     };
     return newCode;
   }
@@ -152,10 +145,11 @@ function CodeModal(props: CodeModalProps) {
                   placeholder="Select a time slot"
                   allowClear
                 >
-                <Option value="08:30:00">08:30 - 09:15</Option>
-                <Option value="09:15:00">9:15 - 10:00</Option>
+                <Option value="8:30:00">08:30 - 09:15</Option>
+                <Option value="9:15:00">9:15 - 10:00</Option>
                 <Option value="10:00:00">10:00 - 10:45</Option>
-                <Option value="10:45:00">10:45 - 12:15</Option>
+                <Option value="10:45:00">10:45 - 11:30</Option>
+                <Option value="11:30:00">11:30 - 12:15</Option>
                 <Option value="12:15:00">12:15 - 13:00</Option>
                 <Option value="13:00:00">13:00 - 13:45</Option>
               </Select>

@@ -95,23 +95,15 @@ export const addDefaultAttendances = async (req, res) => {
       data.forEach(student => {
         Attendance.create({ code_id: req.params.codeId, student_id: student.student_id })
           .catch(err => {
-            console.log(err);      
+            console.log(err);
           });
-      })
-      Attendance.findAll({
-        where: {
-          code_id: req.params.codeId
-        }
-      })
-        .then(data => {
-          return res.status(200).json(data);
-        })
-        .catch(err => {
-          return res.status(404).send(err);
-        })
-    }) 
+      });
+      return res.status(200).json(data);
+    })
+      .catch(err => {
+        return res.status(404).send(err);    
+      });
   } catch (err) {
-    console.log(err);
     return res.status(500).json('Internal server error');
   }
 };

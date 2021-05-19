@@ -48,7 +48,7 @@ export interface Code {
   coord_lon: string;
   date?: string;
   timeslot: string;
-  expiry_datetime: string;
+  expiry_datetime?: string;
   validity?: boolean;
 }
 export interface CodeInstance extends Model<Code>, Code {}

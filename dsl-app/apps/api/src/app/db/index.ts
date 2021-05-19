@@ -12,6 +12,7 @@ const DB_DIALECT: Dialect = 'mysql' // Which type of db to connect to; in our ca
 const sequelize: Sequelize = new Sequelize(DB, DB_USER, DB_PASS, {
   host: DB_HOST,
   dialect: DB_DIALECT,
+  timezone: '+02:00', // for writing to database
   models: [__dirname + '../models'],
   logging: false,
 });
