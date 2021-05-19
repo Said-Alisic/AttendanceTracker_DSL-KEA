@@ -28,18 +28,6 @@ export interface Classes {
   items: Class[];
 }
 
-// May delete
-export interface Lesson {
-  id?: number;
-  class_id: number;
-  date: Date;
-  timeslot: Date;
-}
-export interface LessonInstance extends Model<Lesson>, Lesson {}
-export interface Lessons {
-  items: Lesson[];
-}
-
 export interface Code {
   id?: number;
   class_id: number;
