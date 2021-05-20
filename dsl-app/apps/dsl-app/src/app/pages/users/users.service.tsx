@@ -15,12 +15,11 @@ export const getUsers = async () => {
         
     }
 }
-// TO-DO: Add backend api routes and change these accordingly
+
 // Gets all users with user.role STUDENT
 export const getStudents = async () => {
     try {
-        // return axios.get<User[]>(`${URL}/students`, {
-        return axios.get<User[]>(`${URL}`, {
+        return axios.get<User[]>(`${URL}/students`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
@@ -34,8 +33,7 @@ export const getStudents = async () => {
 // Gets all users with user.role TEACHER
 export const getTeachers = async () => {
     try {
-        // return axios.get<User[]>(`${URL}/teachers`, {
-        return axios.get<User[]>(`${URL}`, {
+        return axios.get<User[]>(`${URL}/teachers`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }

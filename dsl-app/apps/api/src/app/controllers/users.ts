@@ -39,6 +39,42 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const getAllStudents = async (req, res) => {
+  try {
+    await dbConfig.User.findAll({
+      where: {
+        role: "STUDENT",
+      }
+    })
+      .then(data => {
+        return res.status(200).json(data);
+      })
+      .catch(err => {
+        return res.send(err);
+      })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
+export const getAllTeachers = async (req, res) => {
+  try {
+    await dbConfig.User.findAll({
+      where: {
+        role: "TEACHER",
+      }
+    })
+      .then(data => {
+        return res.status(200).json(data);
+      })
+      .catch(err => {
+        return res.send(err);
+      })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
 // export const getUsersByClass = async (req, res) => {
 //     try {
 //         await dbConfig.User.findAll({

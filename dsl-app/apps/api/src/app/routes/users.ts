@@ -2,6 +2,8 @@ import express = require('express');
 import authConfig from '../auth/auth.config';
 import { 
   getAllUsers, 
+  getAllStudents,
+  getAllTeachers,
   getUser, 
   signInUser,
   addUser, 
@@ -15,6 +17,16 @@ userRouter.get('/', [
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isAdmin, 
   getAllUsers
+]); 
+userRouter.get('/students', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getAllStudents
+]); 
+userRouter.get('/teachers', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getAllTeachers
 ]); 
 userRouter.get('/:id', [
   authConfig.authParams.verifyIdParam, 
