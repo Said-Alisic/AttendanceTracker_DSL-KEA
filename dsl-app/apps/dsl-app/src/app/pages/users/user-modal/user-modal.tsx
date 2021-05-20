@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal, Form, Input, Button, Select   } from 'antd';
+import { Modal, Form, Input, Button, Select } from 'antd';
 import { User } from '@dsl-app/api-interfaces';
 
 import './user-modal.module.css';

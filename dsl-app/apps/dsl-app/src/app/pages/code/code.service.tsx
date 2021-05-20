@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const URL = 'api/codes';
 
-export const getCodeByString = async (codeString) => {
+export const getCodeByString = async (codeString: string) => {
     try {
         return axios.get(`${URL}/code/${codeString}`, {
             headers: {

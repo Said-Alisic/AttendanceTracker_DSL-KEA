@@ -15,7 +15,7 @@ export const getAttendances = async () => {
     }
 }
 
-export const getAttendancesByClass = async (class_id) => {
+export const getAttendancesByClass = async (class_id: number) => {
     try {
         return axios.get<Attendance[]>(`${URL}/class/${class_id}`, {
             headers: {
