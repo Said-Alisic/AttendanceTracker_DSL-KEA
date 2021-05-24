@@ -6,16 +6,36 @@ import Attendance from '../models/Attendance'
 import ClassStudent from '../models/ClassStudent'
 import ClassTeacher from '../models/ClassTeacher'
 
-Class.hasMany(Code, {foreignKey: 'class_id'})
-Class.hasOne(ClassTeacher, {foreignKey: 'class_id'})
-Class.hasMany(ClassStudent, {foreignKey: 'class_id'})
-Code.belongsTo(Class, {foreignKey: 'class_id'}); 
-Code.hasMany(Attendance, {foreignKey: 'code_id'}); 
-User.hasMany(Attendance, {foreignKey: 'student_id'})
-Attendance.belongsTo(User,  {foreignKey: 'student_id'})
-Attendance.belongsTo(Code,  {foreignKey: 'code_id'})
-ClassTeacher.belongsTo(Class, {foreignKey: 'class_id'}); 
-ClassStudent.belongsTo(Class, {foreignKey: 'class_id'}); 
+Class.hasMany(Code, {
+  foreignKey: 'class_id'
+})
+Class.hasOne(ClassTeacher, {
+  foreignKey: 'class_id'
+})
+Class.hasMany(ClassStudent, {
+  foreignKey: 'class_id'
+})
+Code.belongsTo(Class, {
+  foreignKey: 'class_id'
+});
+Code.hasMany(Attendance, {
+  foreignKey: 'code_id'
+});
+User.hasMany(Attendance, {
+  foreignKey: 'student_id'
+})
+Attendance.belongsTo(User, {
+  foreignKey: 'student_id'
+})
+Attendance.belongsTo(Code, {
+  foreignKey: 'code_id'
+})
+ClassTeacher.belongsTo(Class, {
+  foreignKey: 'class_id'
+});
+ClassStudent.belongsTo(Class, {
+  foreignKey: 'class_id'
+});
 
 const dbConfig = {
   Sequelize: sequelize,
