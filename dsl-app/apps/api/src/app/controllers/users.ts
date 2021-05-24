@@ -45,7 +45,6 @@ export const getUser = async (req, res) => {
     });
   }
 };
-// HERE
 export const getAllStudents = async (req, res) => {
   try {
     await dbConfig.User.findAll({
@@ -54,16 +53,18 @@ export const getAllStudents = async (req, res) => {
       }
     })
       .then(data => {
-        return res.status(200).json(data);
-      })
-      .catch(err => {
-        return res.send(err);
-      })
+        return res.status(200).json({
+          message: 'Data retrieved successfully.',
+          data: data,
+        });
+      });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
-// HERE
+  
 export const getAllTeachers = async (req, res) => {
   try {
     await dbConfig.User.findAll({
@@ -72,13 +73,15 @@ export const getAllTeachers = async (req, res) => {
       }
     })
       .then(data => {
-        return res.status(200).json(data);
-      })
-      .catch(err => {
-        return res.send(err);
-      })
+        return res.status(200).json({
+          message: 'Data retrieved successfully.',
+          data: data,
+        });
+      });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
@@ -199,7 +202,6 @@ export const signInUser = async (req: Request, res: Response) => {
           user: data,
           auth_token: token,
         };
-
         return res.status(200).send(authUser);
       })
       .catch(err => {
