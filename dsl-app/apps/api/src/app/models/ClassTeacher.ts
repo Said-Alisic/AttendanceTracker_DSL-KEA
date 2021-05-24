@@ -1,6 +1,10 @@
-import { ClassTeacherInstance } from '@dsl-app/api-interfaces';
+import {
+  ClassTeacherInstance
+} from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
-import { DataTypes } from 'sequelize';
+import {
+  DataTypes
+} from 'sequelize';
 // import { DataTypes, Model, Optional } from 'sequelize';
 // import ClassTeacher from './ClassTeacher';
 
@@ -8,9 +12,8 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<ClassTeacher, 'id'> {}
 
 
-const ClassTeacher = sequelize.define<ClassTeacherInstance>(
-  'ClassTeacher',
-  {
+const ClassTeacher = sequelize.define < ClassTeacherInstance > (
+  'ClassTeacher', {
     class_id: {
       allowNull: false,
       primaryKey: true,

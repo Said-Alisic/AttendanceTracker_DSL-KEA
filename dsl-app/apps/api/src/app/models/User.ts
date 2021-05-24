@@ -1,6 +1,10 @@
-import { UserInstance } from '@dsl-app/api-interfaces';
+import {
+  UserInstance
+} from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
-import { DataTypes } from 'sequelize';
+import {
+  DataTypes
+} from 'sequelize';
 // import { DataTypes, Model, Optional } from 'sequelize';
 // import Attendance from './Attendance';
 
@@ -8,9 +12,8 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<User, 'id'> {}
 
 
-const User = sequelize.define<UserInstance>(
-  'User',
-  {
+const User = sequelize.define < UserInstance > (
+  'User', {
     id: {
       allowNull: false,
       autoIncrement: true,

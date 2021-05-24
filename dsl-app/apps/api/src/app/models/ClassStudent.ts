@@ -1,6 +1,10 @@
-import { ClassStudentInstance } from '@dsl-app/api-interfaces';
+import {
+  ClassStudentInstance
+} from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
-import { DataTypes } from 'sequelize';
+import {
+  DataTypes
+} from 'sequelize';
 // import { DataTypes, Model, Optional } from 'sequelize';
 // import ClassStudent from './ClassStudent';
 
@@ -8,9 +12,8 @@ import { DataTypes } from 'sequelize';
 //   extends Optional<ClassStudent, 'id'> {}
 
 
-const ClassStudent = sequelize.define<ClassStudentInstance>(
-  'ClassStudent',
-  {
+const ClassStudent = sequelize.define < ClassStudentInstance > (
+  'ClassStudent', {
     class_id: {
       allowNull: false,
       primaryKey: true,

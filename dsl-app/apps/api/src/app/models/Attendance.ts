@@ -1,15 +1,18 @@
-import { AttendanceInstance } from '@dsl-app/api-interfaces';
+import {
+  AttendanceInstance
+} from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
-import { DataTypes } from 'sequelize';
+import {
+  DataTypes
+} from 'sequelize';
 // import { DataTypes, Model, Optional } from 'sequelize';
 // import Attendance from './Attendance';
 
 // interface AttendanceCreationAttributes
 //   extends Optional<Attendance, 'id'> {}
 
-const Attendance = sequelize.define<AttendanceInstance>(
-  'Attendance',
-  {
+const Attendance = sequelize.define < AttendanceInstance > (
+  'Attendance', {
     code_id: {
       allowNull: false,
       primaryKey: true,
