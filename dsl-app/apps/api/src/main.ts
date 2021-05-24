@@ -12,7 +12,9 @@ const corsOps = {
 }
 
 app.use(cors(corsOps));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 app.use('/api', router)
 
