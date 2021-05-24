@@ -5,7 +5,7 @@ import { Modal, Form, Input, Button, Select } from 'antd';
 import './class-modal.module.css';
 import { postClass, postClassTeacher } from '../classes.service';
 // import { getStudents } from '../../users/users.service';
-// import { getTeachers } from '../../users/users.service';
+import { getTeachers } from '../../users/users.service';
 
 /* eslint-disable-next-line */
 export interface ClassModalProps {}
@@ -25,12 +25,12 @@ export function ClassModal(props: ClassModalProps) {
     wrapperCol: { offset: 10, span: 8 },
   };
 
-  // useEffect(() => {
-  //   getTeachers().then(res => {
-  //     setTeachers(res.data)
-  //   })
-  //   .catch(err => console.log(err))
-  // })
+  useEffect(() => {
+    getTeachers().then(res => {
+      setTeachers(res.data)
+    })
+    .catch(err => console.log(err))
+  })
 
   const showModal = () => {
     setIsModalVisible(true);
