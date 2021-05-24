@@ -1,7 +1,7 @@
-import { 
-  Request, 
-  Response, 
-  NextFunction 
+import {
+  Request,
+  Response,
+  NextFunction
 } from 'express';
 import dbConfig from '../db/db.config';
 
@@ -12,15 +12,18 @@ const verifyExistingUser = (req: Request, res: Response, next: NextFunction) => 
     },
   })
     .then(data => {
-      if(!data) {
-        return res.status(404).json('User does not exist!')
-        
+      if (!data) {
+        return res.status(404).json({
+          message: 'User does not exist!'
+        })
+
       }
-      next();    
+      next();
     })
-    .catch(() => {
-      return res.status(500).json('Internal server error!');
-        
+    .catch((err) => {
+      return res.status(500).json({
+        message: `Internal server error: ${err}`,
+      });
     })
 }
 
@@ -32,7 +35,9 @@ const verifyNewUser = (req: Request, res: Response, next: NextFunction) => {
   })
     .then(data => {
       if (data) {
-        return res.status(409).send('User already exists!');
+        return res.status(409).json({
+          message: 'User already exists!'
+        });
       }
       next();
     })
