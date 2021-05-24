@@ -41,7 +41,7 @@ export const addClassTeacher = async (req, res) => {
     await ClassTeacher.create(req.body)
       .then(data => {
         return res.status(200).json({
-          message: 'Class created successfully.',
+          message: 'Class teacher created successfully.',
           data: data,
         });
       });
