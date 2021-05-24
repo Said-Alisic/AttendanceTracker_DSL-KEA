@@ -25,7 +25,9 @@ export interface Class {
   id ? : number;
   name: string;
 }
-export interface ClassInstance extends Model < Class > , Class {}
+export interface ClassInstance extends Model < Class > , Class {
+  dataValues: never;
+}
 export interface Classes {
   items: Class[];
 }
