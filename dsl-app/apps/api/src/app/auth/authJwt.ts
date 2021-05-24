@@ -4,14 +4,14 @@ import jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
   const token = req.headers['auth-token'];
   if (token == undefined) {
-    return res.status(403).send({
+    return res.status(403).json({
       message: 'No token provided!',
     });
   }
  
   jwt.verify(token, process.env.JWT_SECRET,  (err, decoded) => {
     if (err) {
-      return res.status(401).send({
+      return res.status(401).json({
         message: 'Unauthorized!',
       });
     }
@@ -26,7 +26,7 @@ const isAdmin = (req, res, next) => {
       next();
       return;
     }
-    return res.status(403).send({
+    return res.status(403).json({
       message: 'Require Admin Role!',
     });
   });
@@ -38,7 +38,7 @@ const isTeacherOrAdmin = (req, res, next) => {
       next();
       return;
     }
-    return res.status(403).send({
+    return res.status(403).json({
       message: 'Require Teacher or Admin Role!',
     });
   });
