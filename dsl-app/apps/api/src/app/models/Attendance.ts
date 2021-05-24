@@ -13,13 +13,13 @@ import {
 
 const Attendance = sequelize.define < AttendanceInstance > (
   'Attendance', {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      unique: true,
-    },
+    // id: {
+    //   allowNull: false,
+    //   autoIncrement: true,
+    //   primaryKey: true,
+    //   type: DataTypes.UUID,
+    //   unique: true,
+    // },
     code_id: {
       allowNull: false,
       primaryKey: true,

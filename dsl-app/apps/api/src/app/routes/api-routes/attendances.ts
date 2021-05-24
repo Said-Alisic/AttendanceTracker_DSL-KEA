@@ -2,7 +2,7 @@ import express = require('express');
 import authConfig from '../../auth/auth.config';
 import {
   getAllAttendances,
-  getAttendance,
+  // getAttendance,
   getAttendancesByClass,
   addAttendance,
   addDefaultAttendances,
@@ -16,12 +16,12 @@ attendanceRouter.get('/', [
   authConfig.authJwt.isTeacherOrAdmin,
   getAllAttendances
 ]);
-attendanceRouter.get('/:id', [
-  authConfig.authParams.verifyIdParam,
-  authConfig.authJwt.verifyToken,
-  authConfig.authJwt.isTeacherOrAdmin,
-  getAttendance
-]);
+// attendanceRouter.get('/:id', [
+//   authConfig.authParams.verifyIdParam,
+//   authConfig.authJwt.verifyToken,
+//   authConfig.authJwt.isTeacherOrAdmin,
+//   getAttendance
+// ]);
 attendanceRouter.get('/class/:id', [
   authConfig.authParams.verifyIdParam,
   authConfig.authJwt.verifyToken,

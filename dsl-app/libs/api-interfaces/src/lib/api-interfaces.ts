@@ -49,7 +49,7 @@ export interface Codes {
 }
 
 export interface Attendance {
-  id ? : number;
+  // id ? : number;
   code_id: number;
   student_id: number;
   present ? : boolean;

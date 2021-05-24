@@ -5,11 +5,12 @@ const URL = 'api/attendances';
 
 export const getAttendances = async () => {
     try {
-        return axios.get<Attendance[]>(URL, {
+        const a = await axios.get<Attendance[]>(URL, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return a.data;
     } catch (err) {
         console.log(err);
     }
@@ -17,11 +18,12 @@ export const getAttendances = async () => {
 
 export const getAttendancesByClass = async (class_id: number) => {
     try {
-        return axios.get<Attendance[]>(`${URL}/class/${class_id}`, {
+        const a = await axios.get<Attendance[]>(`${URL}/class/${class_id}`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return a.data;
     } catch (err) {
         console.log(err);
     }
