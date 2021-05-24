@@ -5,11 +5,12 @@ const URL = 'api/users';
 
 export const getUsers = async () => {
     try {
-        return axios.get<User[]>(URL, {
+        const u = await axios.get<User[]>(URL, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return u.data;
     } catch (err) {
         console.log(err);
         
