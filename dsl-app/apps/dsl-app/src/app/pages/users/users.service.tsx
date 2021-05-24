@@ -5,11 +5,12 @@ const URL = 'api/users';
 
 export const getUsers = async () => {
     try {
-        return axios.get<User[]>(URL, {
+        const u = await axios.get<User[]>(URL, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return u.data;
     } catch (err) {
         console.log(err);
         
@@ -19,11 +20,12 @@ export const getUsers = async () => {
 // Gets all users with user.role STUDENT
 export const getStudents = async () => {
     try {
-        return axios.get<User[]>(`${URL}/students`, {
+        const s = await axios.get<User[]>(`${URL}/students`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return s.data;
     } catch (err) {
         console.log(err);
         
@@ -33,11 +35,12 @@ export const getStudents = async () => {
 // Gets all users with user.role TEACHER
 export const getTeachers = async () => {
     try {
-        return axios.get<User[]>(`${URL}/teachers`, {
+        const t = await axios.get<User[]>(`${URL}/teachers`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return t.data;
     } catch (err) {
         console.log(err);
         
