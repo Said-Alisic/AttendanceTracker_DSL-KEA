@@ -45,6 +45,7 @@ export interface Codes {
 }
 
 export interface Attendance {
+  id?: number;
   code_id: number;
   student_id: number;
   present?: boolean;
