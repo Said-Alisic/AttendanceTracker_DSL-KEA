@@ -1,11 +1,10 @@
 import express = require('express');
-import userRouter from './users'
-import classRouter from './classes'
-import codeRouter from './codes'
-import attendanceRouter from './attendances'
-import classStudentRouter from './classStudents'
-import classTeacherRouter from './classTeachers'
-
+import userRouter from './api-routes/users'
+import classRouter from './api-routes/classes'
+import codeRouter from './api-routes/codes'
+import attendanceRouter from './api-routes/attendances'
+import classStudentRouter from './api-routes/classStudents'
+import classTeacherRouter from './api-routes/classTeachers'
 
 const router = express.Router();
 
@@ -15,6 +14,5 @@ router.use('/codes', codeRouter);
 router.use('/attendances', attendanceRouter);
 router.use('/classStudents', classStudentRouter);
 router.use('/classTeachers', classTeacherRouter);
-
 
 export default router;

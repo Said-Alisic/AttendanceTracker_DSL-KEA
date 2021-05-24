@@ -1,12 +1,12 @@
 import express = require('express');
-import authConfig from '../auth/auth.config';
+import authConfig from '../../auth/auth.config';
 import { 
   getAllClasses, 
   getClass, 
   addClass, 
   updateClass, 
   deleteClass
-} from '../controllers/classes';
+} from '../../controllers/classes';
 
 const classRouter = express.Router();
 

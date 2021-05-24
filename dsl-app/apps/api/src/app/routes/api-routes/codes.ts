@@ -1,5 +1,5 @@
 import express = require('express');
-import authConfig from '../auth/auth.config';
+import authConfig from '../../auth/auth.config';
 import { 
   getAllCodes, 
   getCode, 
@@ -7,7 +7,7 @@ import {
   addCode, 
   updateCode, 
   deleteCode 
-} from '../controllers/codes';
+} from '../../controllers/codes';
 
 const codeRouter = express.Router();
 

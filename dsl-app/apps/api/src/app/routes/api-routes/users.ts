@@ -1,5 +1,5 @@
 import express = require('express');
-import authConfig from '../auth/auth.config';
+import authConfig from '../../auth/auth.config';
 import { 
   getAllUsers, 
   getAllStudents,
@@ -9,7 +9,7 @@ import {
   addUser, 
   updateUser, 
   deleteUser
-} from '../controllers/users';
+} from '../../controllers/users';
 
 const userRouter = express.Router();
 

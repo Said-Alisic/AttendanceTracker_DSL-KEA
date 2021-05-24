@@ -1,11 +1,11 @@
 import express = require('express');
-import authConfig from '../auth/auth.config';
+import authConfig from '../../auth/auth.config';
 import { 
   getAllClassStudents, 
   getClassStudent, 
   addClassStudent, 
   deleteClassStudent
-} from '../controllers/classStudents';
+} from '../../controllers/classStudents';
 
 const classStudentRouter = express.Router();
 
