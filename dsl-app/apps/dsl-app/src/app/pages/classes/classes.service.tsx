@@ -1,3 +1,4 @@
+import classes from '*.module.styl';
 import { Class, ClassStudent, ClassTeacher } from '@dsl-app/api-interfaces';
 import axios from 'axios';
 
@@ -6,12 +7,13 @@ const URL_TEACHERS = 'api/classTeachers';
 const URL_STUDENTS = 'api/classStudents';
 
 export const getClasses = async () => {
-    try { 
-        return axios.get<Class[]>(URL, {
+    try {
+        const found =  await axios.get<Class[]>(URL, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return found.data;
     } catch (err) {
         console.log(err);      
     }
