@@ -8,8 +8,8 @@ const verifyToken = (req, res, next) => {
       message: 'No token provided!',
     });
   }
- 
-  jwt.verify(token, process.env.JWT_SECRET,  (err, decoded) => {
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({
         message: 'Unauthorized!',
@@ -17,7 +17,7 @@ const verifyToken = (req, res, next) => {
     }
     req.id = decoded.id;
     next();
-  });   
+  });
 }
 
 const isAdmin = (req, res, next) => {
@@ -31,7 +31,7 @@ const isAdmin = (req, res, next) => {
     });
   });
 };
-  
+
 const isTeacherOrAdmin = (req, res, next) => {
   dbConfig.User.findByPk(req.id).then(user => {
     if (user.role === 'ADMIN' || user.role === 'TEACHER') {
