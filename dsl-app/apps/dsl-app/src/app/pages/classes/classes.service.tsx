@@ -21,11 +21,12 @@ export const getClasses = async () => {
 
 export const postClass = async (classData: Class) => {
     try {
-        return axios.post<Class>(URL, classData, {
+        const c = await axios.post<Class>(URL, classData, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return c.data;
     } catch (err) {
         console.log(err);
     }

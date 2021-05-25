@@ -22,6 +22,7 @@ export interface Users {
 }
 
 export interface Class {
+  [x: string]: any;
   id ? : number;
   name: string;
 }
