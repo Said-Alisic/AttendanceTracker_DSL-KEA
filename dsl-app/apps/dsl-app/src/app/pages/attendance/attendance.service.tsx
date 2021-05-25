@@ -32,11 +32,12 @@ export const getAttendancesByClass = async (class_id: number) => {
 
 export const postAttendances = async (id: number, class_id: number) => {
     try {
-        return axios.post(`${URL}/${id}/${class_id}`, {
+        const a = await axios.post(`${URL}/${id}/${class_id}`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }
         });
+        return a;
     } catch (err) {
         console.log(err);
     }
