@@ -6,12 +6,11 @@ export const getAllCodes = async (req, res) => {
     await Code.findAll()
       .then(data => {
         return res.status(200).json(data);
-      })
-      .catch(err => {
-        return res.status(404).send(err);
-      })
+      });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
@@ -25,27 +24,36 @@ export const getCode = async (req, res) => {
         return res.status(404).send(err);
       })
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
 export const getCodeByString = async (req, res) => {
-  try {      
+  try {
     await Code.findOne({
       where: {
         code_string: req.params.codeString
       }
     })
       .then(data => {
-        if(data.validity) { return res.status(200).json(data) }
-        else { return res.status(404).json("Code is no longer valid!") }
-                
-      })
-      .catch(err => {
-        return res.status(404).send(err);
-      })
+        if (data === null) {
+          return res.status(404).json({
+            message: 'No code found. Please try again.',
+          });
+        }
+        if (data.validity) {
+          return res.status(200).json(data)
+        } else {
+          return res.status(404).json("Code is no longer valid!")
+        }
+
+      });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
@@ -53,13 +61,15 @@ export const addCode = async (req, res) => {
   try {
     await Code.create(req.body)
       .then(data => {
-        return res.json(data)
+        return res.status(200).json(data)
       })
       .catch(err => {
         return res.status(404).send(err);
       })
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
@@ -71,12 +81,11 @@ export const updateCode = async (req, res) => {
       }
     }).then(() => {
       return res.status(200).json();
-    })
-      .catch(err => {
-        return res.status(404).send(err);
-      });
+    });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
 
@@ -86,14 +95,19 @@ export const deleteCode = async (req, res) => {
       where: {
         id: req.params.id
       }
-    }).then(() => {
-      return res.status(200).json();
-    })
-      .catch(err => {
-        return res.status(404).send(err);
+    }).then(data => {
+      if (data === null) {
+        return res.status(404).json({
+          message: 'No code found. Please try again.',
+        });
+      }
+      return res.status(200).json({
+        message: 'Code deleted successfully.',
       });
+    });
   } catch (err) {
-    return res.status(500).json('Internal server error');
+    return res.status(500).json({
+      message: `Internal server error: ${err}`,
+    });
   }
 };
-

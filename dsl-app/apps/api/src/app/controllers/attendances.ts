@@ -117,7 +117,7 @@ export const addDefaultAttendances = async (req, res) => {
       });
       return res.status(200).json({
         message: 'Data retrieved successfully.',
-        data: data,
+        data,
       });
     });
   } catch (err) {
