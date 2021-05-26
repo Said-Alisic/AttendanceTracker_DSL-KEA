@@ -3,6 +3,8 @@ import Attendance from '../models/Attendance';
 import ClassStudent from '../models/ClassStudent';
 import dbConfig from '../db/db.config';
 
+// Helper function to get all students of a particular class to help 
+// create default attendances for the newly created attendance code
 const getAllClassStudents = (class_id) => {
   try {
     return ClassStudent.findAll({
