@@ -28,11 +28,11 @@ const Code = sequelize.define<CodeInstance>(
     },
     coord_lat: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.NUMBER,
     },
     coord_lon: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.NUMBER,
     },
     date: {
       allowNull: true,
@@ -46,10 +46,6 @@ const Code = sequelize.define<CodeInstance>(
       allowNull: true,
       type: DataTypes.DATE,
     },
-    validity: {
-      defaultValue: 1,
-      type: DataTypes.TINYINT,
-    }
   }, {
     tableName: 'codes',
     timestamps: false
