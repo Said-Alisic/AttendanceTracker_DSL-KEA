@@ -18,8 +18,8 @@ function CodeModal(props: CodeModalProps) {
   const [classes, setClasses] = useState<Class[]>([])
   const [codeString, setCodeString] = useState<string>("")
 
-  const [teacherLat, setTeacherLat] = useState("0")
-  const [teacherLon, setTeacherLon]= useState("0")
+  const [teacherLat, setTeacherLat] = useState(0.0)
+  const [teacherLon, setTeacherLon]= useState(0.0)
 
   const { Option } = Select;
 
@@ -67,8 +67,7 @@ function CodeModal(props: CodeModalProps) {
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
-      result.push(characters.charAt(Math.floor(Math.random() * 
-      charactersLength)));
+      result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
     }
     return result.join('');
   };
