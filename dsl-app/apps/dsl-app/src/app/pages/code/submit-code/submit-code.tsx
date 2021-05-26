@@ -27,13 +27,27 @@ function SubmitCode(props: SubmitCodeProps) {
   };
 
   const getUserCoords = (coords) => {
-    setUserLat(coords.coords.latitude)
-    setUserLon(coords.coords.longitude)
+    setUserLat(Number(coords.coords.latitude.toFixed(2)))
+    setUserLon(Number(coords.coords.longitude.toFixed(2)))
   }
 
   const validateUserCoords = (code: Code) => {
-    if (((parseFloat(code.coord_lat) + 1) > userLat && (parseFloat(code.coord_lat) - 1) < userLat) && 
-        ((parseFloat(code.coord_lon) + 1) > userLon && (parseFloat(code.coord_lon) - 1) < userLon)) {
+
+    const date = new Date;
+    const currentDate = date.getFullYear() + '-' 
+                      + (date.getMonth() + 1) + '-' 
+                      + date.getDate() + '-'
+                      + date.getHours() + ":"  
+                      + date.getMinutes() + ":" 
+                      + date.getSeconds();
+
+    if (new Date(currentDate) > new Date(code.expiry_datetime)) {
+      warningMsg('The code you have provided has expired.')
+      return false
+    }
+
+    if (((code.coord_lat + 1) > userLat && (code.coord_lat - 1) < userLat) && 
+        ((code.coord_lon + 1) > userLon && (code.coord_lon - 1) < userLon)) {
       return true
     } else {
       warningMsg('According to your current device coordinates, you are not physically present in the class and cannot submit the code.')
@@ -55,10 +69,7 @@ function SubmitCode(props: SubmitCodeProps) {
             updateAttendance(attendance)
               .then(() => {
                 successMsg('Attendance has been successfully recorded!')
-              })
-              .catch(() => {
-                warningMsg('The code you have provided has expired.')
-              }) 
+              });
           } else {
             warningMsg('The code you have provided does not exist.')
           }
@@ -77,8 +88,6 @@ function SubmitCode(props: SubmitCodeProps) {
     } else { 
       errorMsg('Location tracking must be enabled in order to validate a code!')
     }
-
-    
   };
 
   return (

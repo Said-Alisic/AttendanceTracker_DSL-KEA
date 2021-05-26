@@ -37,9 +37,7 @@ export const getCodeByString = async (req, res) => {
       }
     })
       .then(data => {
-        if(data.validity) { return res.status(200).json(data) }
-        else { return res.status(404).json("Code is no longer valid!") }
-                
+        return res.status(200).json(data)
       })
       .catch(err => {
         return res.status(404).send(err);

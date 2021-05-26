@@ -32,8 +32,8 @@ export interface Code {
   id?: number;
   class_id: number;
   code_string: string;
-  coord_lat: string;
-  coord_lon: string;
+  coord_lat: number;
+  coord_lon: number;
   date?: string;
   timeslot: string;
   expiry_datetime?: string;
