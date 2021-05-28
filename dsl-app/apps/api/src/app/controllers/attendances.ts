@@ -62,6 +62,25 @@ export const getAttendancesByClass = async (req, res) => {
   }
 };
 
+export const getAttendancesByStudentAndCode = async (req, res) => {
+  try {
+    Attendance.findAll({
+      where: {
+        code_id: req.params.codeId,
+        student_id: req.params.studentId,
+      }
+    })
+      .then(data => {
+        return res.status(200).json(data);
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
 export const getAttendance = async (req, res) => {
   try {
 
