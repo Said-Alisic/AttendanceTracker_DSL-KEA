@@ -6,7 +6,8 @@ import {
   getAttendancesByClass, 
   addAttendance, 
   addDefaultAttendances, 
-  updateAttendance  
+  updateAttendance,
+  getAttendancesByStudentAndCode,
 } from '../controllers/attendances';
 
 const attendanceRouter = express.Router();
@@ -27,7 +28,11 @@ attendanceRouter.get('/class/:id', [
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isTeacherOrAdmin, 
   getAttendancesByClass
-]); 
+]);
+attendanceRouter.get('/:codeId/:studentId', [
+  authConfig.authParams.verifyCodeStudentIdParams,
+  getAttendancesByStudentAndCode
+]);
 attendanceRouter.post('/', [ 
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isTeacherOrAdmin,

@@ -18,6 +18,12 @@ const verifyCodeClassIdParams = (req: Request, res: Response, next: NextFunction
   }
   next();
 }
+const verifyCodeStudentIdParams = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.params.codeId.match(/^[0-9]*$/) || !req.params.studentId.match(/^[0-9]*$/)) {
+    return res.status(404).json('Wrong id format. Try again.');
+  }
+  next();
+}
 
 const verifyCodeStringParam = (req: Request, res: Response, next: NextFunction) => {
   if (!req.params.codeString.match(/^[0-9a-zA-Z]*$/)) {
@@ -30,6 +36,7 @@ const authParams = {
   verifyIdParam,
   verifyCodeClassIdParams,
   verifyCodeStringParam,
+  verifyCodeStudentIdParams,
 };
 
 export default authParams;
