@@ -80,8 +80,54 @@ TO admin@localhost;
 
 SELECT user FROM mysql.user;
 
+# PROCEDURES
+USE attendance_checker;
+DROP PROCEDURE IF EXISTS get_attendances_by_class;
+DROP PROCEDURE IF EXISTS get_possible_students;
+
+DELIMITER $$
+    CREATE PROCEDURE get_attendances_by_class(class_id INT)
+        BEGIN
+            SELECT class.name,student.email,student.first_name,student.last_name,
+                   attendance.description,SUBSTRING(code.date, 1, 10) AS date,
+                   SUBSTRING(code.timeslot, 12, 5) AS timeslot,
+                   code_string,student_id,code_id,
+                   CASE
+                       WHEN attendance.present<>0 THEN 'Yes'
+                       WHEN attendance.present=0 THEN 'No'
+                       ELSE 'Unknown'
+                   END,
+                   present
+            FROM attendances AS attendance
+            INNER JOIN codes AS code ON attendance.code_id = code.id
+            INNER JOIN classes AS class ON code.class_id = class.id
+            INNER JOIN users AS student on attendance.student_id = student.id
+            WHERE class.id = class_id ORDER BY timeslot;
+        END $$
+DELIMITER ;
+
+DELIMITER $$
+    CREATE PROCEDURE get_possible_students(class_id INT)
+        BEGIN
+            SELECT DISTINCT users.id, users.first_name, users.last_name, users.email
+            FROM users
+            INNER JOIN class_students on users.id = class_students.student_id
+            WHERE class_students.class_id != class_id AND users.role = 'STUDENT'
+            AND users.id NOT IN (
+                SELECT users.id
+                FROM users
+                INNER JOIN class_students on users.id = class_students.student_id
+                WHERE class_students.class_id = class_id
+                );
+        END $$
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE get_attendances_by_class TO 'admin'@'localhost';
+GRANT EXECUTE ON PROCEDURE get_possible_students TO 'admin'@'localhost';
+
 
 # POPULATING THE DATABASE
+USE attendance_checker;
 # All passwords: $2a$12$LxnehOJRiQ6NxA1NjVbjGeUvyEcvcBpu5X8ZplXLhO.NV/cW0aPUq -> 1234
 INSERT INTO users (first_name, last_name, password, email, role) VALUES
 ('admin', 'user', '$2a$12$LxnehOJRiQ6NxA1NjVbjGeUvyEcvcBpu5X8ZplXLhO.NV/cW0aPUq', 'adminuser@KEA.dk', 'ADMIN'),
@@ -144,23 +190,18 @@ SELECT * FROM codes;
 
 SELECT * FROM class_students;
 SELECT * FROM class_students INNER JOIN users ON id = student_id WHERE class_id = 4;
+SELECT class_id, student_id, id, first_name, last_name FROM class_students INNER JOIN users ON id = student_id WHERE class_id = 2;
 
 SELECT * FROM attendances;
 SELECT * FROM attendances WHERE code_id = 8;
-SELECT * FROM attendances INNER JOIN codes ON id = code_id WHERE code_string = 'W4k3J2H7';
+SELECT * FROM attendances INNER JOIN codes ON id = code_id WHERE code_string = 'ojRdmKBn';
 
-SELECT class.name,student.email,student.first_name,student.last_name,
-       attendance.description,SUBSTRING(code.date, 1, 10) AS date,
-       SUBSTRING(code.timeslot, 12, 5) AS timeslot,
-       code_string,student_id,code_id, # Delete this after
-       CASE
-           WHEN attendance.present<>0 THEN 'Yes'
-           WHEN attendance.present=0 THEN 'No'
-           ELSE 'Unknown'
-       END,
-       present
-FROM attendances AS attendance
-INNER JOIN codes AS code ON attendance.code_id = code.id
-INNER JOIN classes AS class ON code.class_id = class.id
-INNER JOIN users AS student on attendance.student_id = student.id
-WHERE class.id = 1 ORDER BY timeslot;#AND timeslot = '10:00:00' ;
+CALL get_attendances_by_class(1);
+CALL get_attendances_by_class(2);
+CALL get_attendances_by_class(3);
+CALL get_attendances_by_class(4);
+
+call get_possible_students(1);
+call get_possible_students(2);
+call get_possible_students(3);
+call get_possible_students(4);

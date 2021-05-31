@@ -25,8 +25,7 @@ classTeacherRouter.post('/', [
   authConfig.authJwt.isAdmin, 
   addClassTeacher
 ]);
-classTeacherRouter.delete('/:id', [
-  authConfig.authParams.verifyIdParam, 
+classTeacherRouter.delete('/:classId/teacherId', [
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isAdmin, 
   deleteClassTeacher

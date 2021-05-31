@@ -7,10 +7,7 @@ import { postCode } from '../code.service';
 import { getClasses } from '../../classes/classes.service';
 import { postAttendances } from '../../attendance/attendance.service';
 
-/* eslint-disable-next-line */
-export interface CodeModalProps {}
-
-function CodeModal(props: CodeModalProps) {
+function CodeModal() {
   
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCodeVisible, setIsCodeVisible] = useState(false);

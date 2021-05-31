@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import Code from '../models/Code';
+import dbConfig from '../db/db.config';
 
 export const getAllCodes = async (req, res) => {
   try {
-    await Code.findAll()
+    await dbConfig.Code.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -17,7 +17,7 @@ export const getAllCodes = async (req, res) => {
 
 export const getCode = async (req, res) => {
   try {
-    await Code.findByPk(req.params.id)
+    await dbConfig.Code.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -31,7 +31,7 @@ export const getCode = async (req, res) => {
 
 export const getCodeByString = async (req, res) => {
   try {      
-    await Code.findOne({
+    await dbConfig.Code.findOne({
       where: {
         code_string: req.params.codeString
       }
@@ -49,7 +49,7 @@ export const getCodeByString = async (req, res) => {
 
 export const addCode = async (req, res) => {
   try {
-    await Code.create(req.body)
+    await dbConfig.Code.create(req.body)
       .then(data => {
         return res.json(data)
       })
@@ -63,7 +63,7 @@ export const addCode = async (req, res) => {
 
 export const updateCode = async (req, res) => {
   try {
-    await Code.update(req.body, {
+    await dbConfig.Code.update(req.body, {
       where: {
         id: req.params.id
       }
@@ -80,7 +80,7 @@ export const updateCode = async (req, res) => {
 
 export const deleteCode = async (req, res) => {
   try {
-    await Code.destroy({
+    await dbConfig.Code.destroy({
       where: {
         id: req.params.id
       }

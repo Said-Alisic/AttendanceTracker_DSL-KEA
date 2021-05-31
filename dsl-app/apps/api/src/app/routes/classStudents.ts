@@ -3,8 +3,8 @@ import authConfig from '../auth/auth.config';
 import { 
   getAllClassStudents, 
   getClassStudent, 
-  addClassStudent, 
-  deleteClassStudent
+  addClassStudents, 
+  deleteClassStudents
 } from '../controllers/classStudents';
 
 const classStudentRouter = express.Router();
@@ -20,16 +20,17 @@ classStudentRouter.get('/:id', [
   authConfig.authJwt.isTeacherOrAdmin, 
   getClassStudent
 ]); 
-classStudentRouter.post('/', [
-  authConfig.authJwt.verifyToken, 
-  authConfig.authJwt.isAdmin, 
-  addClassStudent
-]);
-classStudentRouter.delete('/:id', [
+classStudentRouter.post('/:id', [
   authConfig.authParams.verifyIdParam, 
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isAdmin, 
-  deleteClassStudent
+  addClassStudents
+]);
+classStudentRouter.post('/delete/:id', [
+  authConfig.authParams.verifyIdParam, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  deleteClassStudents
 ]);
 
 export default classStudentRouter;

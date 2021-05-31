@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import Class from '../models/Class';
+import dbConfig from '../db/db.config';
 
 export const getAllClasses = async (req, res) => {
   try {
-    await Class.findAll()
+    await dbConfig.Class.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -17,7 +17,7 @@ export const getAllClasses = async (req, res) => {
 
 export const getClass = async (req, res) => {
   try {
-    await Class.findByPk(req.params.id)
+    await dbConfig.Class.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -31,7 +31,7 @@ export const getClass = async (req, res) => {
 
 export const addClass = async (req, res) => {
   try {
-    await Class.create(req.body)
+    await dbConfig.Class.create(req.body)
       .then(data => {
         return res.json(data)
       })
@@ -45,7 +45,7 @@ export const addClass = async (req, res) => {
 
 export const updateClass = async (req, res) => {
   try {
-    await Class.update(req.body, {
+    await dbConfig.Class.update(req.body, {
       where: {
         id: req.params.id
       }
@@ -62,7 +62,7 @@ export const updateClass = async (req, res) => {
 
 export const deleteClass = async (req, res) => {
   try {
-    await Class.destroy({
+    await dbConfig.Class.destroy({
       where: {
         id: req.params.id
       }

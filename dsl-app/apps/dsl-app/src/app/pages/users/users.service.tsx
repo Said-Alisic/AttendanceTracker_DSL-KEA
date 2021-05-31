@@ -44,7 +44,6 @@ export const getTeachers = async () => {
     }
 }
 
-
 export const postUser = async (user: User) => {
     try {
         return axios.post<User>(URL, user, {
@@ -57,3 +56,4 @@ export const postUser = async (user: User) => {
         
     }
 }
+
