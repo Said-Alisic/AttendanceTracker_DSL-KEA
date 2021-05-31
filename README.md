@@ -28,7 +28,7 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 
 ##*NOTES*
 - All predefined users' passwords are '1234' and the following users can be logged in to access the various functionalities of the app:\
-ADMIN access: adminuser@KEA.dk
-TEACHER access: corradinimail@KEA.dk
+ADMIN access: adminuser@KEA.dk\
+TEACHER access: corradinimail@KEA.dk\
 STUDENT access: bobbayes@KEA.dk
 
