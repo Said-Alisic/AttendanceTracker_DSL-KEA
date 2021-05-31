@@ -13,7 +13,7 @@ import './menu-items.module.css';
 
 export function MenuItems() {
 
-  // FUTURE-UPDATE: Refactor
+  // FUTURE-UPDATE: Refactor; poor functionality
   const handleLogout = () => {
     localStorage.clear();
     window.location.replace('/') 
