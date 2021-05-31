@@ -26,12 +26,19 @@ function SignIn(props: SignInProps) {
     const handleSubmit = (values) => {
       signInUser(values)
       .then(res => {
-        window.location.replace('/attendances')
         localStorage.setItem('authUser', JSON.stringify(res.data))
         setInvalidPassword(true)
+        if(res.data.user.role === 'TEACHER') { 
+          window.location.replace('/attendances') 
+        } else if (res.data.user.role === 'STUDENT') {
+          window.location.replace('/submit-attendance') 
+        } else if (res.data.user.role === 'ADMIN') {
+          window.location.replace('/classes') 
+        }
+
+        
       })
       .catch(err => {
-        // console.log(err.response.status);
         setInvalidEmail(true)
         setInvalidPassword(true)
       })
