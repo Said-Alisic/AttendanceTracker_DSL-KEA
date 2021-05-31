@@ -8,7 +8,7 @@ export interface ErrorProps {}
 function Error(props: ErrorProps) {
   return (
     <div>
-      <h1>Welcome to Error!</h1>
+      <h1>Page doesn't exist! Seems like you took a wrong turn...!</h1>
     </div>
   );
 }
