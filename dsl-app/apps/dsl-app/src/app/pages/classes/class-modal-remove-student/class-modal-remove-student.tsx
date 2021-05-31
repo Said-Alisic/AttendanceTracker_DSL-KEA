@@ -58,7 +58,7 @@ export function ClassModalRemoveStudent(props: ClassModalRemoveStudentProps) {
   return (
     <>
       <Button className="modalBtn" type="primary" danger onClick={showModal}>
-        Remove student(s) {props.class_id}
+        Remove student(s)
       </Button>
       <Modal visible={isModalVisible} onCancel={handleCancel} footer={[null]} closable={false}>
           <Form
