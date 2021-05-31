@@ -1,15 +1,9 @@
 import { Component } from 'react';
-import { Link as NavLink } from 'react-router-dom';
-import { Layout as AntLayout, Menu } from 'antd';
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  LogoutOutlined,
-} from '@ant-design/icons';
+import { Layout as AntLayout } from 'antd';
 import './layout.module.css';
 import 'antd/dist/antd.css';
+
+import MenuItems from '../menu-items/menu-items';
 
 
 const { Header, Content, Sider } = AntLayout;
@@ -24,47 +18,12 @@ class Layout extends Component {
     this.setState({ collapsed });
   };
 
-   handleLogout = () => {
-    localStorage.clear();
-  };
-
   render() {
     const { collapsed } = this.state;
     return (
       <AntLayout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-          <Menu theme="dark" mode="inline">
-            <Menu.Item  key="1" icon={<TeamOutlined />}>
-              <NavLink to="/classes">
-                Classes
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item  key="2" icon={<TeamOutlined />}>
-              <NavLink to="/users">
-                Users
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<PieChartOutlined />}>
-              <NavLink to="/attendances">
-                Attendance
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="4" icon={<DesktopOutlined />}>
-              <NavLink to="/check-attendance">
-                Check Attendance
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="5" icon={<UserOutlined />}>
-              <NavLink to="/submit-attendance">
-                Submit Attendance
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="6" icon={<LogoutOutlined />}>
-              <NavLink to="/" onClick={this.handleLogout}>
-                Sign out
-              </NavLink>
-            </Menu.Item>
-          </Menu>
+          <MenuItems/>
         </Sider>
         <AntLayout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }} />
