@@ -11,8 +11,8 @@ export interface User {
   first_name: string;
   last_name: string;
   email: string;
-  password: string;
-  role: string;
+  password?: string;
+  role?: string;
 }
 export interface UserInstance extends Model<User>, User {}
 export interface Users {

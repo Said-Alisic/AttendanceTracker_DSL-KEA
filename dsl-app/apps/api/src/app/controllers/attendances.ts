@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
-import Attendance from '../models/Attendance';
-import ClassStudent from '../models/ClassStudent';
 import dbConfig from '../db/db.config';
 
 // Helper function to get all students of a particular class to help 
 // create default attendances for the newly created attendance code
 const getAllClassStudents = (class_id) => {
   try {
-    return ClassStudent.findAll({
+    return dbConfig.ClassStudent.findAll({
       where: {
         class_id: class_id
       }
@@ -19,7 +17,7 @@ const getAllClassStudents = (class_id) => {
 
 export const getAllAttendances = async (req, res) => {
   try {
-    await Attendance.findAll()
+    await dbConfig.Attendance.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -33,30 +31,40 @@ export const getAllAttendances = async (req, res) => {
 
 // TO-DO: create query with replacement or use a stored procedure instead
 export const getAttendancesByClass = async (req, res) => {
-  try {      
-    const query = `SELECT class.name, student.email, student.first_name, student.last_name,
-                        attendance.description, SUBSTRING(code.date, 1, 10) AS date,
-                        SUBSTRING(code.timeslot, 12, 5) AS timeslot,
-                        CASE 
-                            WHEN attendance.present<>0 THEN 'Yes'
-                            WHEN attendance.present=0 THEN 'No'
-                            ELSE 'Unknown'
-                        END present
-                        FROM attendances AS attendance
-                        INNER JOIN codes AS code ON attendance.code_id = code.id
-                        INNER JOIN classes AS class ON code.class_id = class.id
-                        INNER JOIN users AS student on attendance.student_id = student.id
-                        WHERE class.id = ${req.params.id} ORDER BY timeslot`;
+  try {   
+    const query = 'CALL get_attendances_by_class(:class_id);';
 
-    dbConfig.Sequelize.query(query, { raw: true, nest: true })
-      .then(data => {
-        return res.status(200).json(data);
-      })
-      .catch(err => {
-        console.log(err);
+    await dbConfig.Sequelize.query(query, {
+      replacements: {
+        class_id: req.params.id
+      },
+    })
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).send(err));
+    
+    // const query = `SELECT class.name, student.email, student.first_name, student.last_name,
+    //                     attendance.description, SUBSTRING(code.date, 1, 10) AS date,
+    //                     SUBSTRING(code.timeslot, 12, 5) AS timeslot,
+    //                     CASE 
+    //                         WHEN attendance.present<>0 THEN 'Yes'
+    //                         WHEN attendance.present=0 THEN 'No'
+    //                         ELSE 'Unknown'
+    //                     END present
+    //                     FROM attendances AS attendance
+    //                     INNER JOIN codes AS code ON attendance.code_id = code.id
+    //                     INNER JOIN classes AS class ON code.class_id = class.id
+    //                     INNER JOIN users AS student on attendance.student_id = student.id
+    //                     WHERE class.id = ${req.params.id} ORDER BY timeslot`;
+
+    // dbConfig.Sequelize.query(query, { raw: true, nest: true })
+    //   .then(data => {
+    //     return res.status(200).json(data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
                 
-        return res.status(404).send(err);
-      })
+    //     return res.status(404).send(err);
+    //   })
   } catch (err) {
     return res.status(500).json('Internal server error');
   }
@@ -65,7 +73,7 @@ export const getAttendancesByClass = async (req, res) => {
 export const getAttendance = async (req, res) => {
   try {
 
-    await Attendance.findByPk(req.params.id)
+    await dbConfig.Attendance.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -79,7 +87,7 @@ export const getAttendance = async (req, res) => {
 
 export const addAttendance = async (req, res) => {
   try {
-    await Attendance.create(req.body)
+    await dbConfig.Attendance.create(req.body)
       .then(data => {
         return res.json(data)
       })
@@ -95,7 +103,7 @@ export const addDefaultAttendances = async (req, res) => {
   try {
     await getAllClassStudents(req.params.classId).then(data => {   
       data.forEach(student => {
-        Attendance.create({ code_id: req.params.codeId, student_id: student.student_id })
+        dbConfig.Attendance.create({ code_id: req.params.codeId, student_id: student.student_id })
           .catch(err => {
             console.log(err);
           });
@@ -112,7 +120,7 @@ export const addDefaultAttendances = async (req, res) => {
 
 export const updateAttendance = async (req, res) => {
   try {
-    await Attendance.update(req.body, {
+    await dbConfig.Attendance.update(req.body, {
       where: {
         code_id: req.body.code_id,
         student_id: req.body.student_id

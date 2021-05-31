@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import ClassTeacher from '../models/ClassTeacher';
+import dbConfig from '../db/db.config';
 
 export const getAllClassTeachers = async (req, res) => {
   try {
-    await ClassTeacher.findAll()
+    await dbConfig.ClassTeacher.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -17,7 +17,7 @@ export const getAllClassTeachers = async (req, res) => {
 
 export const getClassTeacher = async (req, res) => {
   try {
-    await ClassTeacher.findByPk(req.params.id)
+    await dbConfig.ClassTeacher.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -31,7 +31,7 @@ export const getClassTeacher = async (req, res) => {
 
 export const addClassTeacher = async (req, res) => {
   try {
-    await ClassTeacher.create(req.body)
+    await dbConfig.ClassTeacher.create(req.body)
       .then(data => {
         return res.json(data)
       })
@@ -46,10 +46,10 @@ export const addClassTeacher = async (req, res) => {
 
 export const deleteClassTeacher = async (req, res) => {
   try {
-    await ClassTeacher.destroy({
+    await dbConfig.ClassTeacher.destroy({
       where: {
-        class_id: req.params.id,
-        teacher_id: req.params.id
+        class_id: req.params.classId,
+        teacher_id: req.params.teacherId,
       }
     }).then(() => {
       return res.status(200).json();

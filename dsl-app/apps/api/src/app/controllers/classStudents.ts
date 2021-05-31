@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
-import ClassStudent from '../models/ClassStudent';
+import dbConfig from '../db/db.config';
+import { 
+  ClassStudent,
+} from '@dsl-app/api-interfaces';
 
 export const getAllClassStudents = async (req, res) => {
   try {
-    await ClassStudent.findAll()
+    await dbConfig.ClassStudent.findAll()
       .then(data => {
         return res.status(200).json(data);
       })
@@ -17,7 +20,7 @@ export const getAllClassStudents = async (req, res) => {
 
 export const getClassStudent = async (req, res) => {
   try {
-    await ClassStudent.findByPk(req.params.id)
+    await dbConfig.ClassStudent.findByPk(req.params.id)
       .then(data => {
         return res.status(200).json(data);
       })
@@ -29,34 +32,45 @@ export const getClassStudent = async (req, res) => {
   }
 };
 
-export const addClassStudent = async (req, res) => {
+export const addClassStudents = async (req, res) => {
   try {
-    await ClassStudent.create(req.body)
-      .then(data => {
-        return res.json(data)
-      })
-      .catch(err => {
-        return res.status(404).send(err);
-      })
+    await req.body.student_ids.forEach(student_id => {
+      const newClassStudent: ClassStudent = {
+        class_id: req.params.id,
+        student_id: student_id,
+      }
+      dbConfig.ClassStudent.create(newClassStudent)
+        .catch(err => {
+          console.log(err);
+        });
+    })          
+    return res.status(200).json({
+      message: 'Successfully removed students from class list.',
+    });
   } catch (err) {
+    console.log(err);
+    
     return res.status(500).json('Internal server error');
   }
 };
 
 
-export const deleteClassStudent = async (req, res) => {
+export const deleteClassStudents = async (req, res) => {
   try {
-    await ClassStudent.destroy({
-      where: {
-        class_id: req.params.id,
-        student_id: req.params.id
-      }
-    }).then(() => {
-      return res.status(200).json();
+    await req.body.student_ids.forEach(student_id => {
+      dbConfig.ClassStudent.destroy({
+        where: {
+          class_id: req.params.id,
+          student_id: student_id,
+        }
+      })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+    return res.status(200).json({
+      message: 'Successfully removed students from class list.',
     })
-      .catch(err => {
-        return res.status(404).send(err);
-      });
   } catch (err) {
     return res.status(500).json('Internal server error');
   }

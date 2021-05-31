@@ -4,7 +4,8 @@ import * as cors from 'cors';
 
 const app = express();
 
-const PORT = process.env.port || 3333;
+// Set .env file BACKEND_PORT to 8080
+const PORT = process.env.BACKEND_PORT || 3333;
 
 // Only accept cross-origin requests from specified host
 const corsOps = {

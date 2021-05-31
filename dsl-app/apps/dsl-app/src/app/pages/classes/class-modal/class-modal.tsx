@@ -4,7 +4,6 @@ import { Modal, Form, Input, Button, Select } from 'antd';
 
 import './class-modal.module.css';
 import { postClass, postClassTeacher } from '../classes.service';
-import { getStudents } from '../../users/users.service';
 import { getTeachers } from '../../users/users.service';
 
 /* eslint-disable-next-line */

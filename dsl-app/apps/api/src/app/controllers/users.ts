@@ -8,7 +8,7 @@ import jwt = require('jsonwebtoken');
 import bcrypt = require('bcryptjs');
 import { 
   User, 
-  AuthUser, 
+  AuthUser,
 } from '@dsl-app/api-interfaces';
 
 export const getAllUsers = async (req, res) => {
@@ -70,6 +70,52 @@ export const getAllTeachers = async (req, res) => {
       .catch(err => {
         return res.send(err);
       })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
+
+// Gets all students belonging to a certain class
+export const getClassStudents = async (req, res) => {
+  try {
+    await  dbConfig.User.findAll({
+      where: {
+        role: 'STUDENT',
+      },
+      include: [{
+        model: dbConfig.ClassStudent,
+        where: {
+          class_id: req.params.id,
+        },
+        attributes: {
+          exclude: ['class_id', 'student_id'],
+        },
+      }],
+    })
+      .then(data => {
+        return res.status(200).json(data);
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
+// Gets all students not belonging to a certain class
+export const getPossibleClassStudents = async (req, res) => {
+  try {
+    const query = 'CALL get_possible_students(:class_id);';
+
+    await dbConfig.Sequelize.query(query, {
+      replacements: {
+        class_id: req.params.id
+      },
+    })
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).send(err));
   } catch (err) {
     return res.status(500).json('Internal server error');
   }

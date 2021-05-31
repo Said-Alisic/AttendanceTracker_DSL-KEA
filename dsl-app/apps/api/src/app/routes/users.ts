@@ -3,6 +3,8 @@ import authConfig from '../auth/auth.config';
 import { 
   getAllUsers, 
   getAllStudents,
+  getClassStudents,
+  getPossibleClassStudents,
   getAllTeachers,
   getUser, 
   signInUser,
@@ -23,6 +25,20 @@ userRouter.get('/students', [
   authConfig.authJwt.isAdmin, 
   getAllStudents
 ]); 
+// Get all students belonging to a class of passed class id endpoint parameter
+userRouter.get('/classStudents/:id', [
+  authConfig.authParams.verifyIdParam,
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getClassStudents
+]); 
+// Get all students not belonging to a class of passed class id endpoint parameter
+userRouter.get('/possibleClassStudents/:id', [
+  authConfig.authParams.verifyIdParam,
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
+  getPossibleClassStudents
+]); 
 userRouter.get('/teachers', [
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isAdmin, 
@@ -38,10 +54,9 @@ userRouter.post('/sign-in', [
   authConfig.authVerification.verifyExistingUser, 
   signInUser
 ]); 
-// NOTE: uncomment authentication functions when deploying app to production server
 userRouter.post('/', [
-  // authConfig.authJwt.verifyToken, 
-  // authConfig.authJwt.isAdmin, 
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isAdmin, 
   authConfig.authVerification.verifyNewUser, 
   addUser
 ]);
