@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 
 import MenuItems from '../menu-items/menu-items';
 
-
 const { Header, Content, Sider } = AntLayout;
 
 class Layout extends Component {

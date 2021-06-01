@@ -45,7 +45,7 @@ export const addClassStudents = async (req, res) => {
         });
     })          
     return res.status(200).json({
-      message: 'Successfully removed students from class list.',
+      message: 'Successfully added students to class list.',
     });
   } catch (err) {
     console.log(err);

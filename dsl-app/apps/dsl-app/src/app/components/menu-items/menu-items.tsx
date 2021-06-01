@@ -6,6 +6,7 @@ import {
   TeamOutlined,
   UserOutlined,
   LogoutOutlined,
+  HomeOutlined,
 } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
@@ -13,7 +14,7 @@ import './menu-items.module.css';
 
 export function MenuItems() {
 
-  // FUTURE-UPDATE: Refactor
+  // FUTURE-UPDATE: Refactor; poor functionality
   const handleLogout = () => {
     localStorage.clear();
     window.location.replace('/') 
@@ -79,9 +80,9 @@ export function MenuItems() {
   } else {
     return (
       <Menu theme="dark" mode="inline">
-        <Menu.Item key="1" icon={<LogoutOutlined />}>
-          <NavLink to="/" onClick={handleLogout}>
-            Sign out
+        <Menu.Item key="1" icon={<HomeOutlined />}>
+          <NavLink to="/">
+            Home
           </NavLink>
         </Menu.Item>
       </Menu>

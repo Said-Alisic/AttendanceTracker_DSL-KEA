@@ -11,7 +11,7 @@ import {
   AuthUser,
 } from '@dsl-app/api-interfaces';
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.findAll()
       .then(data => {
@@ -25,7 +25,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const getUser = async (req, res) => {
+export const getUser = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.findByPk(req.params.id)
       .then(data => {
@@ -39,7 +39,7 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getAllStudents = async (req, res) => {
+export const getAllStudents = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.findAll({
       where: {
@@ -57,7 +57,7 @@ export const getAllStudents = async (req, res) => {
   }
 };
 
-export const getAllTeachers = async (req, res) => {
+export const getAllTeachers = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.findAll({
       where: {
@@ -77,7 +77,7 @@ export const getAllTeachers = async (req, res) => {
 
 
 // Gets all students belonging to a certain class
-export const getClassStudents = async (req, res) => {
+export const getClassStudents = async (req: Request, res: Response) => {
   try {
     await  dbConfig.User.findAll({
       where: {
@@ -105,7 +105,7 @@ export const getClassStudents = async (req, res) => {
 };
 
 // Gets all students not belonging to a certain class
-export const getPossibleClassStudents = async (req, res) => {
+export const getPossibleClassStudents = async (req: Request, res: Response) => {
   try {
     const query = 'CALL get_possible_students(:class_id);';
 
@@ -161,7 +161,7 @@ export const addUser = async (req: Request, res: Response) => {
   }
 };
 // process.env.BCRYPT_SALT as unknown as number
-export const updateUser = async (req, res) => {
+export const updateUser = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.update(req.body, {
       where: {
@@ -178,7 +178,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req: Request, res: Response) => {
   try {
     await dbConfig.User.destroy({
       where: {

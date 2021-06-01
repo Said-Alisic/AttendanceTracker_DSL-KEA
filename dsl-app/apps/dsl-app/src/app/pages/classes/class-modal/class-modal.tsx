@@ -6,10 +6,7 @@ import './class-modal.module.css';
 import { postClass, postClassTeacher } from '../classes.service';
 import { getTeachers } from '../../users/users.service';
 
-/* eslint-disable-next-line */
-export interface ClassModalProps {}
-
-export function ClassModal(props: ClassModalProps) {
+export function ClassModal() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [teachers, setTeachers] = useState([]);

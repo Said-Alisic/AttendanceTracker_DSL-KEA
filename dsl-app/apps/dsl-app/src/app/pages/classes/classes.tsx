@@ -8,10 +8,7 @@ import ClassModalRemoveStudent from './class-modal-remove-student/class-modal-re
 import './classes.module.css';
 import { getClasses } from './classes.service';
 
-/* eslint-disable-next-line */
-export interface ClassesProps {}
-
-export function Classes(props: ClassesProps) {
+export function Classes() {
 
   const { Column } = Table;
 

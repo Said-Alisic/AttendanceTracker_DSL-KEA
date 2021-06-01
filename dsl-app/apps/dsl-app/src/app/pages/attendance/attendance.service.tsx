@@ -1,4 +1,4 @@
-import { Attendance  } from '@dsl-app/api-interfaces';
+import { Attendance, UserClassAttendance  } from '@dsl-app/api-interfaces';
 import axios from 'axios';
 
 const URL = 'api/attendances';
@@ -18,6 +18,18 @@ export const getAttendances = async () => {
 export const getAttendancesByClass = async (class_id: number) => {
     try {
         return axios.get<Attendance[]>(`${URL}/class/${class_id}`, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const getAttendanceStatsByClass = async (class_id: number) => {
+    try {
+        return axios.get<UserClassAttendance[]>(`${URL}/stats/${class_id}`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             }

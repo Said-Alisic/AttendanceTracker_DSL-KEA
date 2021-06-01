@@ -3,10 +3,7 @@ import { useState } from 'react';
 import { signInUser } from './sign-in.service';
 import './sign-in.module.css';
 
-/* eslint-disable-next-line */
-export interface SignInProps {}
-
-function SignIn(props: SignInProps) {
+function SignIn() {
 
   const [invalidEmail, setInvalidEmail] = useState(false)
   const [invalidPassword, setInvalidPassword] = useState(false)
@@ -19,31 +16,28 @@ function SignIn(props: SignInProps) {
     wrapperCol: { offset: 10, span: 8 },
   };
    
-    const onFinishFailed = (errorInfo) => {
-      console.log('Failed:', errorInfo);
-    };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
-    const handleSubmit = (values) => {
-      signInUser(values)
-      .then(res => {
-        localStorage.setItem('authUser', JSON.stringify(res.data))
-        setInvalidPassword(true)
-        if(res.data.user.role === 'TEACHER') { 
-          window.location.replace('/attendances') 
-        } else if (res.data.user.role === 'STUDENT') {
-          window.location.replace('/submit-attendance') 
-        } else if (res.data.user.role === 'ADMIN') {
-          window.location.replace('/classes') 
-        }
-
-        
-      })
-      .catch(err => {
-        setInvalidEmail(true)
-        setInvalidPassword(true)
-      })
-
-    }
+  const handleSubmit = (values) => {
+    signInUser(values)
+    .then(res => {
+      localStorage.setItem('authUser', JSON.stringify(res.data))
+      setInvalidPassword(true)
+      if(res.data.user.role === 'TEACHER') { 
+        window.location.replace('/attendances') 
+      } else if (res.data.user.role === 'STUDENT') {
+        window.location.replace('/submit-attendance') 
+      } else if (res.data.user.role === 'ADMIN') {
+        window.location.replace('/classes') 
+      }     
+    })
+    .catch(err => {
+      setInvalidEmail(true)
+      setInvalidPassword(true)
+    })
+  }
   
   return (
     <Form
