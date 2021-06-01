@@ -1,7 +1,11 @@
 /* eslint-disable no-console */
+import { 
+  Request, 
+  Response 
+} from "express";
 import dbConfig from '../db/db.config';
 
-export const getAllClassTeachers = async (req, res) => {
+export const getAllClassTeachers = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassTeacher.findAll()
       .then(data => {
@@ -15,7 +19,7 @@ export const getAllClassTeachers = async (req, res) => {
   }
 };
 
-export const getClassTeacher = async (req, res) => {
+export const getClassTeacher = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassTeacher.findByPk(req.params.id)
       .then(data => {
@@ -29,7 +33,7 @@ export const getClassTeacher = async (req, res) => {
   }
 };
 
-export const addClassTeacher = async (req, res) => {
+export const addClassTeacher = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassTeacher.create(req.body)
       .then(data => {
@@ -44,7 +48,7 @@ export const addClassTeacher = async (req, res) => {
 };
 
 
-export const deleteClassTeacher = async (req, res) => {
+export const deleteClassTeacher = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassTeacher.destroy({
       where: {

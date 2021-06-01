@@ -2,6 +2,7 @@ import CodeModal from '../code-modal/code-modal'
 
 import './create-code.module.css';
 
+// FUTRE-UPDATE: Add description on how to code creation works
 function CreateCode() {
   return (
     <>

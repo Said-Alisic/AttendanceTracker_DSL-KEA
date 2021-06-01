@@ -6,9 +6,21 @@ const URL_TEACHERS = 'api/classTeachers';
 const URL_STUDENTS = 'api/classStudents';
 const URL_USERS = 'api/users';
 
-export const getClasses = async () => {
+export const getAllClasses = async () => {
     try { 
         return axios.get<Class[]>(URL, {
+            headers: {
+                "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
+            },
+        });
+    } catch (err) {
+        console.log(err);      
+    }
+}
+
+export const getAllClassesByTeacher = async () => {
+    try { 
+        return axios.get<Class[]>(`${URL}/teacher`, {
             headers: {
                 "auth-token": JSON.parse(localStorage.getItem('authUser')).auth_token,
             },

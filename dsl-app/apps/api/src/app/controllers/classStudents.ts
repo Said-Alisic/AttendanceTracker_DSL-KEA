@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
+import { 
+  Request, 
+  Response 
+} from "express";
 import dbConfig from '../db/db.config';
 import { 
   ClassStudent,
 } from '@dsl-app/api-interfaces';
 
-export const getAllClassStudents = async (req, res) => {
+export const getAllClassStudents = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassStudent.findAll()
       .then(data => {
@@ -18,7 +22,7 @@ export const getAllClassStudents = async (req, res) => {
   }
 };
 
-export const getClassStudent = async (req, res) => {
+export const getClassStudent = async (req: Request, res: Response) => {
   try {
     await dbConfig.ClassStudent.findByPk(req.params.id)
       .then(data => {
@@ -32,12 +36,12 @@ export const getClassStudent = async (req, res) => {
   }
 };
 
-export const addClassStudents = async (req, res) => {
+export const addClassStudents = async (req: Request, res: Response) => {
   try {
     await req.body.student_ids.forEach(student_id => {
       const newClassStudent: ClassStudent = {
-        class_id: req.params.id,
-        student_id: student_id,
+        class_id: parseInt(req.params.id),
+        student_id: parseInt(student_id),
       }
       dbConfig.ClassStudent.create(newClassStudent)
         .catch(err => {
@@ -55,7 +59,7 @@ export const addClassStudents = async (req, res) => {
 };
 
 
-export const deleteClassStudents = async (req, res) => {
+export const deleteClassStudents = async (req: Request, res: Response) => {
   try {
     await req.body.student_ids.forEach(student_id => {
       dbConfig.ClassStudent.destroy({

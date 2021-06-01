@@ -1,12 +1,6 @@
 import { UserInstance } from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
 import { DataTypes } from 'sequelize';
-// import { DataTypes, Model, Optional } from 'sequelize';
-// import Attendance from './Attendance';
-
-// interface UserCreationAttributes
-//   extends Optional<User, 'id'> {}
-
 
 const User = sequelize.define<UserInstance>(
   'User',

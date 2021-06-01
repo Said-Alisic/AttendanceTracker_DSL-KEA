@@ -1,5 +1,6 @@
 import './error.module.css';
 
+// FUTURE-UPDATE: Add button to go back to sign-in or home page
 function Error() {
   return (
     <div>

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Modal, Form, Button, Select } from 'antd';
+import { Modal, Form, Button, Select, message  } from 'antd';
 import { Code, Class } from '@dsl-app/api-interfaces';
 
 import './code-modal.module.css';
 import { postCode } from '../code.service';
-import { getClasses } from '../../classes/classes.service';
+import { getAllClassesByTeacher } from '../../classes/classes.service';
 import { postAttendances } from '../../attendance/attendance.service';
 
 function CodeModal() {
@@ -29,14 +29,26 @@ function CodeModal() {
   };
 
   useEffect(() => {
-    getClasses().then(res => {
+    getAllClassesByTeacher().then(res => {
       setClasses(res.data)
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(getUserCoords);
-      }
+      };
     })
-    .catch(err => console.log(err))
-  }, [])
+    .catch(err => console.log(err));
+  }, []);
+  
+  const successMsg = (msg) => {
+    message.success(msg);
+  };
+  
+  const warningMsg = (msg) => {
+    message.warning(msg);
+  };
+
+  const errorMsg = (msg) => {
+    message.error(msg);
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -48,16 +60,16 @@ function CodeModal() {
 
   const codeCancel = () => {
     setIsCodeVisible(false);
-  }
+  };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
   const getUserCoords = (coords) => {
-    setTeacherLat(coords.coords.latitude)
-    setTeacherLon(coords.coords.longitude)
-  }
+    setTeacherLat(coords.coords.latitude);
+    setTeacherLon(coords.coords.longitude);
+  };
 
   const generateCode = (length): string => {
     const result           = [];
@@ -65,7 +77,7 @@ function CodeModal() {
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
       result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
-    }
+    };
     return result.join('');
   };
 
@@ -73,7 +85,7 @@ function CodeModal() {
     setIsModalVisible(false);
 
     const code = generateCode(8);
-    setCodeString(code)
+    setCodeString(code);
 
     const newCode: Code = { 
       class_id: values.class_id, 
@@ -83,33 +95,38 @@ function CodeModal() {
       timeslot: values.timeslot,
     };
     return newCode;
-  }
+  };
 
   const handleSubmit = (values) => {
     const newCode: Code = createCode(values)
+    if (navigator.geolocation) {
+      postCode(newCode)
+      .then(res => {
+        postAttendances(res.data.id, res.data.class_id);
+        setIsCodeVisible(true);
+        successMsg('Attendance code successfully created');
+      })
+      .catch(() => {
+        setIsCodeVisible(false);
+        errorMsg('An error occurred while creating the attendance code. Please try again.');
+      });
+    } else {
+      warningMsg('Please enable location service to create an attendance code.');
+    };
+  };
 
-    postCode(newCode)
-    .then(res => {
-      postAttendances(res.data.id, res.data.class_id);
-      setIsCodeVisible(true);
-    })
-    .catch(err => {
-      console.log(err);
-      setIsCodeVisible(false);
-    });
-  }
   if (navigator.geolocation) {
     return (
       <>
         <Button 
-        size="large" 
-        className="modalBtn" 
-        type="primary" 
-        onClick={showModal}>
-          Generate Attendance Code
+          size="large" 
+          className="modalBtn" 
+          type="primary" 
+          onClick={showModal}>
+            Generate Attendance Code
         </Button>
         <Modal visible={isModalVisible} onCancel={handleCancel} footer={[null]} closable={false}>
-            <Form
+          <Form
             {...layout}
             name="basic"
             initialValues={{ remember: true }}
@@ -121,10 +138,7 @@ function CodeModal() {
               name="class_id"
               rules={[{ required: true, message: 'Please select a class!' }]}
             >
-              <Select
-                  placeholder="Select a class"
-                  allowClear
-                >
+              <Select placeholder="Select a class" allowClear>
                 {classes.map((classItem, index) => {
                   return (
                     <Option value={classItem.id} key={index}>{classItem.name}</Option>
@@ -137,10 +151,7 @@ function CodeModal() {
               name="timeslot"
               rules={[{ required: true, message: 'Please select a time slot!' }]}
             >
-              <Select
-                  placeholder="Select a time slot"
-                  allowClear
-                >
+              <Select placeholder="Select a time slot" allowClear>
                 <Option value="8:30:00">08:30 - 09:15</Option>
                 <Option value="9:15:00">9:15 - 10:00</Option>
                 <Option value="10:00:00">10:00 - 10:45</Option>
@@ -157,8 +168,7 @@ function CodeModal() {
             </Form.Item>
           </Form>
         </Modal>
-        <Modal title="Please check your attendance by submitting the code below" 
-                
+        <Modal title="Please check your attendance by submitting the code below"       
                 visible={isCodeVisible}
                 closable={false} 
                 maskClosable={false}

@@ -33,7 +33,6 @@ export const getAllAttendances = async (req: Request, res: Response) => {
   }
 };
 
-// TO-DO: create query with replacement or use a stored procedure instead
 export const getAttendancesByClass = async (req: Request, res: Response) => {
   try {   
     const query = 'CALL get_attendances_by_class(:class_id);';

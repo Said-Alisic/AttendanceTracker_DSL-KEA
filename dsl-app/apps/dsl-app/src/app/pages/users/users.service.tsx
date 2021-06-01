@@ -11,8 +11,7 @@ export const getUsers = async () => {
             }
         });
     } catch (err) {
-        console.log(err);
-        
+        console.log(err);  
     }
 }
 
@@ -25,8 +24,7 @@ export const getStudents = async () => {
             }
         });
     } catch (err) {
-        console.log(err);
-        
+        console.log(err);  
     }
 }
 
@@ -40,7 +38,6 @@ export const getTeachers = async () => {
         });
     } catch (err) {
         console.log(err);
-        
     }
 }
 
@@ -53,7 +50,6 @@ export const postUser = async (user: User) => {
         });
     } catch (err) {
         console.log(err);
-        
     }
 }
 

@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { ClassStudent, User } from '@dsl-app/api-interfaces';
-import { Modal, Form, Input, Button, Select } from 'antd';
+import { useState } from 'react';
+import { User } from '@dsl-app/api-interfaces';
+import { Modal, Form, Button, Select } from 'antd';
 
 import './class-modal-add-student.module.css';
 import { postClassStudents } from '../classes.service';
 import { getPossibleClassStudents } from '../classes.service';
 
-/* eslint-disable-next-line */
 export interface ClassModalAddStudentProps {
   class_id: number;
 }
