@@ -6,10 +6,7 @@ import { updateAttendance } from '../../attendance/attendance.service';
 import { Attendance, Code } from '@dsl-app/api-interfaces';
 import { useState } from 'react';
 
-/* eslint-disable-next-line */
-export interface SubmitCodeProps {}
-
-function SubmitCode(props: SubmitCodeProps) {
+function SubmitCode() {
   const { Search } = Input;
   const [userLat, setUserLat] = useState(0.0)
   const [userLon, setUserLon]= useState(0.0)

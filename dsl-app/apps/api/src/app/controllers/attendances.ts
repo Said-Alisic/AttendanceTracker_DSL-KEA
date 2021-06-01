@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
+import { 
+  Request, 
+  Response 
+} from "express";
 import dbConfig from '../db/db.config';
 
 // Helper function to get all students of a particular class to help 
 // create default attendances for the newly created attendance code
-const getAllClassStudents = (class_id) => {
+const getAllClassStudents = (class_id: number) => {
   try {
     return dbConfig.ClassStudent.findAll({
       where: {
@@ -15,7 +19,7 @@ const getAllClassStudents = (class_id) => {
   }
 }
 
-export const getAllAttendances = async (req, res) => {
+export const getAllAttendances = async (req: Request, res: Response) => {
   try {
     await dbConfig.Attendance.findAll()
       .then(data => {
@@ -30,7 +34,7 @@ export const getAllAttendances = async (req, res) => {
 };
 
 // TO-DO: create query with replacement or use a stored procedure instead
-export const getAttendancesByClass = async (req, res) => {
+export const getAttendancesByClass = async (req: Request, res: Response) => {
   try {   
     const query = 'CALL get_attendances_by_class(:class_id);';
 
@@ -41,38 +45,14 @@ export const getAttendancesByClass = async (req, res) => {
     })
       .then(data => res.status(200).json(data))
       .catch(err => res.status(404).send(err));
-    
-    // const query = `SELECT class.name, student.email, student.first_name, student.last_name,
-    //                     attendance.description, SUBSTRING(code.date, 1, 10) AS date,
-    //                     SUBSTRING(code.timeslot, 12, 5) AS timeslot,
-    //                     CASE 
-    //                         WHEN attendance.present<>0 THEN 'Yes'
-    //                         WHEN attendance.present=0 THEN 'No'
-    //                         ELSE 'Unknown'
-    //                     END present
-    //                     FROM attendances AS attendance
-    //                     INNER JOIN codes AS code ON attendance.code_id = code.id
-    //                     INNER JOIN classes AS class ON code.class_id = class.id
-    //                     INNER JOIN users AS student on attendance.student_id = student.id
-    //                     WHERE class.id = ${req.params.id} ORDER BY timeslot`;
-
-    // dbConfig.Sequelize.query(query, { raw: true, nest: true })
-    //   .then(data => {
-    //     return res.status(200).json(data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-                
-    //     return res.status(404).send(err);
-    //   })
   } catch (err) {
     return res.status(500).json('Internal server error');
   }
 };
 
-export const getAttendancesByStudentAndCode = async (req, res) => {
+export const getAttendanceByStudentAndCode = async (req: Request, res: Response) => {
   try {
-    Attendance.findAll({
+    dbConfig.Attendance.findAll({
       where: {
         code_id: req.params.codeId,
         student_id: req.params.studentId,
@@ -84,6 +64,22 @@ export const getAttendancesByStudentAndCode = async (req, res) => {
       .catch(err => {
         return res.status(404).send(err);
       })
+  } catch (err) {
+    return res.status(500).json('Internal server error');
+  }
+};
+
+export const getAttendanceStatsByClass = async (req: Request, res: Response) => {
+  try {   
+    const query = 'CALL get_attendance_percentage_by_class(:class_id);';
+
+    await dbConfig.Sequelize.query(query, {
+      replacements: {
+        class_id: req.params.id
+      },
+    })
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).send(err));
   } catch (err) {
     return res.status(500).json('Internal server error');
   }
@@ -104,7 +100,7 @@ export const getAttendance = async (req, res) => {
   }
 };
 
-export const addAttendance = async (req, res) => {
+export const addAttendance = async (req: Request, res: Response) => {
   try {
     await dbConfig.Attendance.create(req.body)
       .then(data => {
@@ -118,11 +114,12 @@ export const addAttendance = async (req, res) => {
   }
 };
 
-export const addDefaultAttendances = async (req, res) => {
+// NOTE: Check if works with req: Request, res: Response and parseInt()
+export const addDefaultAttendances = async (req: Request, res: Response) => {
   try {
-    await getAllClassStudents(req.params.classId).then(data => {   
+    await getAllClassStudents(parseInt(req.params.classId)).then(data => {   
       data.forEach(student => {
-        dbConfig.Attendance.create({ code_id: req.params.codeId, student_id: student.student_id })
+        dbConfig.Attendance.create({ code_id: parseInt(req.params.codeId), student_id: student.student_id })
           .catch(err => {
             console.log(err);
           });
@@ -137,7 +134,7 @@ export const addDefaultAttendances = async (req, res) => {
   }
 };
 
-export const updateAttendance = async (req, res) => {
+export const updateAttendance = async (req: Request, res: Response) => {
   try {
     await dbConfig.Attendance.update(req.body, {
       where: {

@@ -3,11 +3,12 @@ import authConfig from '../auth/auth.config';
 import { 
   getAllAttendances, 
   getAttendance, 
-  getAttendancesByClass, 
+  getAttendancesByClass,
+  getAttendanceByStudentAndCode,
+  getAttendanceStatsByClass,
   addAttendance, 
   addDefaultAttendances, 
   updateAttendance,
-  getAttendancesByStudentAndCode,
 } from '../controllers/attendances';
 
 const attendanceRouter = express.Router();
@@ -29,9 +30,16 @@ attendanceRouter.get('/class/:id', [
   authConfig.authJwt.isTeacherOrAdmin, 
   getAttendancesByClass
 ]);
+attendanceRouter.get('/stats/:id', [
+  authConfig.authParams.verifyIdParam, 
+  // authConfig.authJwt.verifyToken, 
+  // authConfig.authJwt.isTeacherOrAdmin, 
+  getAttendanceStatsByClass
+]);
 attendanceRouter.get('/:codeId/:studentId', [
   authConfig.authParams.verifyCodeStudentIdParams,
-  getAttendancesByStudentAndCode
+  authConfig.authJwt.verifyToken, 
+  getAttendanceByStudentAndCode
 ]);
 attendanceRouter.post('/', [ 
   authConfig.authJwt.verifyToken, 
@@ -40,8 +48,8 @@ attendanceRouter.post('/', [
 ]);
 attendanceRouter.post('/:codeId/:classId', [
   authConfig.authParams.verifyCodeClassIdParams, 
-  // authConfig.authJwt.verifyToken, 
-  // authConfig.authJwt.isTeacherOrAdmin,
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacherOrAdmin,
   addDefaultAttendances
 ]);
 attendanceRouter.put('/', [

@@ -6,10 +6,7 @@ import './users.module.css';
 import { getUsers } from './users.service';
 import UserModal from './user-modal/user-modal'
 
-/* eslint-disable-next-line */
-export interface UsersProps {}
-
-export function Users(props: UsersProps) {
+export function Users() {
 
   const { Column } = Table;
 

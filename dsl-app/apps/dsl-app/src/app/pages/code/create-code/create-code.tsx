@@ -2,10 +2,7 @@ import CodeModal from '../code-modal/code-modal'
 
 import './create-code.module.css';
 
-/* eslint-disable-next-line */
-export interface CreateCodeProps {}
-
-function CreateCode(props: CreateCodeProps) {
+function CreateCode() {
   return (
     <>
       <h1>Welcome to lesson attendance code creator</h1>

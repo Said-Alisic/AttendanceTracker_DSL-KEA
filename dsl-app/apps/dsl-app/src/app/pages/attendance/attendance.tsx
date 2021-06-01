@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Attendance, Class } from '@dsl-app/api-interfaces';
-import { Table, Button, Form, Select } from 'antd';
+import { Attendance, Class, UserClassAttendance } from '@dsl-app/api-interfaces';
+import { Button, Form, Select, Radio } from 'antd';
+import 'antd/dist/antd.css';
 
 import './attendance.module.css';
-import { getAttendancesByClass } from './attendance.service';
+import { getAttendancesByClass, getAttendanceStatsByClass } from './attendance.service';
 import { getClasses } from '../classes/classes.service';
+import AttendancesTable from './attendances-table/attendances-table';
+import AttendanceStatsTable from './attendance-stats-table/attendance-stats-table';
 
-/* eslint-disable-next-line */
-export interface AttendancesProps {}
-
-function Attendances(props: AttendancesProps) {
-  const { Column } = Table;
+function Attendances() {
 
   const [attendances, setAttendances] = useState<Attendance[]>([])
+  const [userClassAttendances, SetUserClassAttendances] = useState<UserClassAttendance[]>([])
   const [classes, setClasses] = useState<Class[]>([])
+  const [checked, setChecked] = useState<boolean>(false);
   
   const { Option } = Select;
 
@@ -37,10 +38,17 @@ function Attendances(props: AttendancesProps) {
   };
 
   const handleSubmit = (values) => {
-    getAttendancesByClass(values.class_id)
-    .then(res => {
-      setAttendances(res.data)  
-    })
+    if(checked) {
+      getAttendanceStatsByClass(values.class_id)
+      .then(res => {
+        SetUserClassAttendances(res.data)  
+      })
+    } else {
+      getAttendancesByClass(values.class_id)
+      .then(res => {
+        setAttendances(res.data)  
+      })
+    }
   }
 
   return (
@@ -74,16 +82,18 @@ function Attendances(props: AttendancesProps) {
             </Button>
           </Form.Item>
         </Form>
-      <Table dataSource={attendances} rowKey="id" pagination={{defaultPageSize: 10, hideOnSinglePage: true}} >
-      <Column title="Class Name" dataIndex="name" key="name" />
-      <Column title="Student Email" dataIndex="email" key="email" />
-      <Column title="First Name" dataIndex="first_name" key="first_name" />
-      <Column title="Last Name" dataIndex="last_name" key="last_name" />
-      <Column title="Present" dataIndex="present" key="present" />
-      <Column title="Attendance Note" dataIndex="description" key="description" />
-      <Column title="Date" dataIndex="date" key="date" />
-      <Column title="Time Slot" dataIndex="timeslot" key="timeslot" />
-    </Table>
+        <Radio.Group 
+        onChange={({ target: { value } }) => {
+          setChecked(value);
+        }}
+      >
+        <Radio value={false}>Show class user attendance</Radio>
+        <Radio value={true}>Show class user attendance by percentage</Radio>
+      </Radio.Group>
+        { checked
+        ? <AttendanceStatsTable userClassAttendances={userClassAttendances}/>
+        : <AttendancesTable attendances={attendances}/>
+      }
   </>
   );
 }
