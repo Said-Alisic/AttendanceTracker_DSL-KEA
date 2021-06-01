@@ -26,7 +26,7 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 4. Navigate to http://localhost:8080 for the api
 5. Navigate to http://localhost:4200 for the client application
 
-**Testing the app**
+## Testing the app
 ***As Admin user***
 - Open a browser and navigate to http://localhost:4200 and sign in as (EMAIL) adminsuser@KEA.dk (PASS) 1234
 - Click on 'Users' sidebar link and create a new user
