@@ -1,11 +1,8 @@
-import React from 'react';
-
 import './pop-up-message.module.css';
 
-/* eslint-disable-next-line */
-export interface PopUpMessageProps {}
-
-export function PopUpMessage(props: PopUpMessageProps) {
+// FUTURE-UPDATE: Create single component or multiple components to reuse
+// when displaying pop-up success, warning and error messages
+export function PopUpMessage() {
   return (
     <div>
       <h1>Welcome to PopUpMessage!</h1>

@@ -33,11 +33,11 @@ function SignIn() {
         window.location.replace('/classes') 
       }     
     })
-    .catch(err => {
+    .catch(() => {
       setInvalidEmail(true)
       setInvalidPassword(true)
-    })
-  }
+    });
+  };
   
   return (
     <Form

@@ -3,7 +3,6 @@ import { Table } from 'antd';
 
 import './attendance-stats-table.module.css';
 
-/* eslint-disable-next-line */
 export interface AttendanceStatsTableProps {
   userClassAttendances: UserClassAttendance[];
 }

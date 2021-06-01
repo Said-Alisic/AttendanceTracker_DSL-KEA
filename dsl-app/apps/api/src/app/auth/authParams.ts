@@ -4,7 +4,6 @@ import {
   NextFunction 
 } from "express";
 
-/* eslint-disable consistent-return */
 const verifyIdParam = (req: Request, res: Response, next: NextFunction) => {
   if (!req.params.id.match(/^[0-9]*$/)) {
     return res.status(404).json('Wrong id format. Try again.');

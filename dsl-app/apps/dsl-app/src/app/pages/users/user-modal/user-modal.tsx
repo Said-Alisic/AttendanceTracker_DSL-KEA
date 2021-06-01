@@ -38,6 +38,9 @@ export function UserModal(props: UserModalrops) {
     setIsModalVisible(false);
     const newUser: User = values;
     postUser(newUser)
+    .then(() => {
+      window.location.reload();
+    })
       .catch(err => {
         console.log(err);
       })

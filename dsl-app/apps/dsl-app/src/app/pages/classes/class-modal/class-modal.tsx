@@ -52,7 +52,10 @@ export function ClassModal() {
         class_id: res.data.id,
       }
       postClassTeacher(teacher)
-      .catch((err) => console.log(err))
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
     })
     .catch(err => console.log(err))
   }

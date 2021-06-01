@@ -31,6 +31,18 @@ const isAdmin = (req, res, next) => {
     });
   });
 };
+
+const isTeacher = (req, res, next) => {
+  dbConfig.User.findByPk(req.id).then(user => {
+    if (user.role === 'TEACHER') {
+      next();
+      return;
+    }
+    return res.status(403).send({
+      message: 'Require Teacher or Admin Role!',
+    });
+  });
+};
   
 const isTeacherOrAdmin = (req, res, next) => {
   dbConfig.User.findByPk(req.id).then(user => {
@@ -46,6 +58,7 @@ const isTeacherOrAdmin = (req, res, next) => {
 
 const authJwt = {
   verifyToken: verifyToken,
+  isTeacher: isTeacher,
   isTeacherOrAdmin: isTeacherOrAdmin,
   isAdmin: isAdmin,
 };

@@ -6,7 +6,7 @@ import ClassModalAddStudent from './class-modal-add-student/class-modal-add-stud
 import ClassModalRemoveStudent from './class-modal-remove-student/class-modal-remove-student';
 
 import './classes.module.css';
-import { getClasses } from './classes.service';
+import { getAllClasses } from './classes.service';
 
 export function Classes() {
 
@@ -15,7 +15,7 @@ export function Classes() {
   const [classes, setClasses] = useState<Class[]>([])
   
   useEffect(() => {
-    getClasses().then(res => {
+    getAllClasses().then(res => {
       setClasses(res.data)  
     })
     .catch(err => console.log(err))

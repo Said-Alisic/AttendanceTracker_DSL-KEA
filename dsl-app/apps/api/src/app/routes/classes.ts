@@ -3,6 +3,7 @@ import authConfig from '../auth/auth.config';
 import { 
   getAllClasses, 
   getClass, 
+  getAllClassesByTeacher,
   addClass, 
   updateClass, 
   deleteClass
@@ -14,6 +15,11 @@ classRouter.get('/', [
   authConfig.authJwt.verifyToken, 
   authConfig.authJwt.isTeacherOrAdmin, 
   getAllClasses
+]); 
+classRouter.get('/teacher', [
+  authConfig.authJwt.verifyToken, 
+  authConfig.authJwt.isTeacher, 
+  getAllClassesByTeacher
 ]); 
 classRouter.get('/:id', [
   authConfig.authParams.verifyIdParam, 

@@ -1,11 +1,6 @@
 import { ClassInstance } from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
 import { DataTypes } from 'sequelize';
-// import { DataTypes, Model, Optional } from 'sequelize';
-// import Attendance from './Attendance';
-
-// interface ClassCreationAttributes
-//   extends Optional<Class, 'id'> {}
 
 const Class = sequelize.define<ClassInstance>(
   'Class',

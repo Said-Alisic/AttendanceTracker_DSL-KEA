@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 
 import './attendance.module.css';
 import { getAttendancesByClass, getAttendanceStatsByClass } from './attendance.service';
-import { getClasses } from '../classes/classes.service';
+import { getAllClassesByTeacher } from '../classes/classes.service';
 import AttendancesTable from './attendances-table/attendances-table';
 import AttendanceStatsTable from './attendance-stats-table/attendance-stats-table';
 
@@ -27,7 +27,7 @@ function Attendances() {
   };
   
   useEffect(() => {
-    getClasses().then(res => {
+    getAllClassesByTeacher().then(res => {
       setClasses(res.data)
     })
     .catch(err => console.error(err))

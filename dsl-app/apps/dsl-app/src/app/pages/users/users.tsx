@@ -7,7 +7,6 @@ import { getUsers } from './users.service';
 import UserModal from './user-modal/user-modal'
 
 export function Users() {
-
   const { Column } = Table;
 
   const [users, setUsers] = useState<User[]>([])
@@ -21,7 +20,7 @@ export function Users() {
 
   return (
     <>
-      <UserModal>Create User</UserModal>
+      <UserModal/>
       <Table dataSource={users} rowKey="id" pagination={{defaultPageSize: 10, hideOnSinglePage: true}} >
       <Column title="First Name" dataIndex="first_name" key="first_name" />
       <Column title="Last Name" dataIndex="last_name" key="last_name" />
@@ -32,8 +31,8 @@ export function Users() {
         key="action"
         render={() => (
           <Space size="middle">
-            <Button>Update</Button>
-            <Button>Delete</Button>
+            <Button type="primary">Update</Button>
+            <Button type="primary" danger>Delete</Button>
           </Space>
         )}
       />

@@ -8,10 +8,7 @@ import SubmitCode from '../pages/code/submit-code/submit-code';
 import Attendances from '../pages/attendance/attendance';
 import Error from '../pages/error/error';
 
-/* eslint-disable-next-line */
-export interface RouterProps {}
-
-function Router(props: RouterProps) {
+function Router() {
   return (
     <Switch>
       <Route exact path="/" component={SignIn}/>

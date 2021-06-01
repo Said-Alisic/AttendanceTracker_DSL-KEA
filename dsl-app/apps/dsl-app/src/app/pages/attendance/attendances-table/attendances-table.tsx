@@ -3,7 +3,6 @@ import { Table } from 'antd';
 
 import './attendances-table.module.css';
 
-/* eslint-disable-next-line */
 export interface AttendancesTableProps {
   attendances: Attendance[];
 }

@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { ClassStudent, User } from '@dsl-app/api-interfaces';
-import { Modal, Form, Input, Button, Select } from 'antd';
+import { useState } from 'react';
+import { User } from '@dsl-app/api-interfaces';
+import { Modal, Form, Button, Select } from 'antd';
 
 import './class-modal-remove-student.module.css';
 import { deleteClassStudents } from '../classes.service';
 import { getClassStudents } from '../classes.service';
 
-/* eslint-disable-next-line */
 export interface ClassModalRemoveStudentProps {
   class_id: number;
 }

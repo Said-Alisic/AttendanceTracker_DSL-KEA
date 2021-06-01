@@ -1,7 +1,11 @@
 /* eslint-disable no-console */
+import { 
+  Request, 
+  Response 
+} from "express";
 import dbConfig from '../db/db.config';
 
-export const getAllCodes = async (req, res) => {
+export const getAllCodes = async (req: Request, res: Response) => {
   try {
     await dbConfig.Code.findAll()
       .then(data => {
@@ -15,7 +19,7 @@ export const getAllCodes = async (req, res) => {
   }
 };
 
-export const getCode = async (req, res) => {
+export const getCode = async (req: Request, res: Response) => {
   try {
     await dbConfig.Code.findByPk(req.params.id)
       .then(data => {
@@ -29,7 +33,7 @@ export const getCode = async (req, res) => {
   }
 };
 
-export const getCodeByString = async (req, res) => {
+export const getCodeByString = async (req: Request, res: Response) => {
   try {      
     await dbConfig.Code.findOne({
       where: {
@@ -47,7 +51,7 @@ export const getCodeByString = async (req, res) => {
   }
 };
 
-export const addCode = async (req, res) => {
+export const addCode = async (req: Request, res: Response) => {
   try {
     await dbConfig.Code.create(req.body)
       .then(data => {
@@ -61,7 +65,7 @@ export const addCode = async (req, res) => {
   }
 };
 
-export const updateCode = async (req, res) => {
+export const updateCode = async (req: Request, res: Response) => {
   try {
     await dbConfig.Code.update(req.body, {
       where: {
@@ -78,7 +82,7 @@ export const updateCode = async (req, res) => {
   }
 };
 
-export const deleteCode = async (req, res) => {
+export const deleteCode = async (req: Request, res: Response) => {
   try {
     await dbConfig.Code.destroy({
       where: {

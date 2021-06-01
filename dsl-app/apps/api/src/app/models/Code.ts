@@ -1,11 +1,6 @@
 import { CodeInstance } from '@dsl-app/api-interfaces';
 import sequelize from '../db/index';
 import { DataTypes } from 'sequelize';
-// import { DataTypes, Model, Optional } from 'sequelize';
-// import Code from './Code';
-
-// interface CodeCreationAttributes
-//   extends Optional<Code, 'id'> {}
 
 const Code = sequelize.define<CodeInstance>(
   'Code',
