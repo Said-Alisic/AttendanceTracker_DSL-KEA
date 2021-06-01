@@ -56,6 +56,6 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
   TEACHER access: corradinimail@KEA.dk\
   STUDENT access: bobbayes@KEA.dk
 - (WARNING) Users not part of a class can submit a code and will not receive a proper warning for not being part of the class, but it will not break the application
-  
+- (WARNING) The application will not function well if location service is not enabled or working properly (One way to reset these issues is to clear your browser of cookies)
 
 
