@@ -50,7 +50,7 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 - Log out and sign in as the previous teacher and check the attendance statistics, they will have changed for Bob Bayes or whoever else you submitted the proper code with
 
 
-##*NOTES*
+##NOTES
 - All predefined users' passwords are '1234' and the following users can be logged in to access the various functionalities of the app:\
   ADMIN access: adminuser@KEA.dk\
   TEACHER access: corradinimail@KEA.dk\
