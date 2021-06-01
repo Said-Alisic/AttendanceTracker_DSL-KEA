@@ -51,6 +51,7 @@ Welcome to the AttendanceTracker_DSL-KEA documentation. The application is not f
 
 
 ## NOTES
+- When installing the node_modules through `npm install`, there is an occasional error that they will not be installed well (haven't been able to find a proper solution to this problem, it is apparently an NX workspace issue), so if installing modules through `npm install` does not work from your favorite IDE integrated terminal, open up (this works on Windows 10) powershell and call the command within powershell. To know if the node_modules have been installed correctly, you should not be getting any warnings stating that `express` or `react` modules are not found within the code.
 - All predefined users' passwords are '1234' and the following users can be logged in to access the various functionalities of the app:\
   ADMIN access: adminuser@KEA.dk\
   TEACHER access: corradinimail@KEA.dk\
